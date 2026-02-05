@@ -21,7 +21,7 @@ jobs:
         run: npm install node-fetch xml2js
 
       - name: 크롤러 실행
-        run: node crawler.js
+        run: node crawler.mjs
 
       - name: 변경사항 저장 및 푸시
         run: |
