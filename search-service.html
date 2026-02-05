@@ -18,14 +18,22 @@
         .section-title { font-size: 16px; font-weight: 800; margin: 10px 0 15px 5px; }
         .result-list { display: flex; flex-direction: column; gap: 12px; }
         
-        .welfare-card { background: white; padding: 22px; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); border-left: 6px solid var(--point-sky); text-decoration: none; color: inherit; display: block; transition: 0.2s; }
-        .welfare-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+        /* 🏛️ 카드 스타일 수정: 왼쪽 포인트 선 제거 및 깔끔한 라운딩 */
+        .welfare-card { 
+            background: white; 
+            padding: 22px; 
+            border-radius: 20px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02); 
+            text-decoration: none; 
+            color: inherit; 
+            display: block; 
+            transition: 0.2s; 
+            border: 1px solid rgba(0,0,0,0.03); /* 아주 연한 테두리 추가 */
+        }
+        .welfare-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
         
         .dept { font-size: 11px; color: var(--point-sky); font-weight: 800; margin-bottom: 8px; display: block; }
-        .title { font-size: 17px; font-weight: 800; margin-bottom: 10px; display: block; color: #0f172a; line-height: 1.4; }
-        .info-row { display: flex; justify-content: space-between; align-items: center; }
-        .region { font-size: 13px; color: var(--sub-text); }
-        .deadline { font-size: 13px; color: #ef4444; font-weight: 800; background: #fee2e2; padding: 4px 8px; border-radius: 6px; }
+        .title { font-size: 17px; font-weight: 800; color: #0f172a; line-height: 1.4; }
         
         .status-msg { text-align: center; padding: 50px 20px; color: var(--sub-text); font-weight: bold; }
     </style>
@@ -38,12 +46,12 @@
 
     <div class="search-container">
         <div class="input-group">
-            <input type="text" id="searchInput" placeholder="정책명이나 키워드로 검색 (예: 청년, 스마트)" onkeyup="filterResults()">
+            <input type="text" id="searchInput" placeholder="정책명이나 키워드로 검색해보세요" onkeyup="filterResults()">
         </div>
     </div>
 
     <div id="content-area">
-        <div id="list-title" class="section-title">실시간 수집된 정책 (100건)</div>
+        <div id="list-title" class="section-title">실시간 수집된 정책</div>
         <div id="resultArea" class="result-list">
             <div class="status-msg">데이터를 불러오고 있습니다...</div>
         </div>
@@ -54,21 +62,17 @@
 
         async function loadInitialData() {
             const resultArea = document.getElementById('resultArea');
-            
-            // 현재 페이지의 경로를 파악해서 json 파일의 위치를 찾습니다.
             const currentPath = window.location.pathname;
             const jsonPath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1) + 'policies.json';
 
             try {
                 const response = await fetch(jsonPath + '?v=' + Math.random());
-                if (!response.ok) throw new Error('데이터 파일을 찾을 수 없습니다.');
+                if (!response.ok) throw new Error('파일 없음');
                 
                 allPolicies = await response.json();
-                console.log("로드된 데이터:", allPolicies); // 개발자 도구 확인용
                 displayData(allPolicies);
             } catch (e) {
-                console.error("로드 에러:", e);
-                resultArea.innerHTML = `<div class="status-msg">⚠️ 데이터를 불러오지 못했습니다.<br>policies.json 파일이 같은 폴더에 있는지 확인해주세요.</div>`;
+                resultArea.innerHTML = `<div class="status-msg">⚠️ 데이터를 불러오지 못했습니다.</div>`;
             }
         }
 
@@ -86,13 +90,11 @@
                 card.className = 'welfare-card';
                 card.href = item.link;
                 card.target = "_blank";
+                
+                // 💡 여기서 '전국', '상세참조' 영역을 완전히 제거했습니다.
                 card.innerHTML = `
                     <span class="dept">${item.source}</span>
                     <span class="title">${item.title}</span>
-                    <div class="info-row">
-                        <span class="region">📍 ${item.region}</span>
-                        <span class="deadline">⌛ ${item.deadline}</span>
-                    </div>
                 `;
                 resultArea.appendChild(card);
             });
@@ -107,7 +109,6 @@
             displayData(filtered);
         }
 
-        // 페이지 로드 시 실행
         window.onload = loadInitialData;
     </script>
 </body>
