@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>복지 서비스 찾기</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquareRound@master/nanumsquareround.min.css">
+    <style>
+        :root { --main-sky: #7dd3fc; --point-sky: #0ea5e9; --bg-gray: #f0f9ff; --text-black: #1e293b; --sub-text: #64748b; }
+        body { font-family: 'NanumSquareRound', sans-serif; background: var(--bg-gray); margin: 0; padding: 20px; color: var(--text-black); }
+        
+        header { padding: 10px 0 20px; }
+        h1 { font-size: 24px; font-weight: 800; color: var(--point-sky); margin: 0; }
+
+        /* 검색창 영역 (실제 데이터 필터링용) */
+        .search-container { position: sticky; top: 10px; z-index: 100; background: white; padding: 15px; border-radius: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .input-group { display: flex; gap: 10px; }
+        input { flex: 1; border: 2px solid #e2e8f0; padding: 12px 15px; border-radius: 12px; font-size: 16px; outline: none; font-family: inherit; }
+        .btn-search { background: var(--point-sky); color: white; border: none; padding: 0 20px; border-radius: 12px; font-weight: 800; cursor: pointer; }
+
+        .section-title { font-size: 16px; font-weight: 800; margin: 10px 0 15px 5px; }
+        .result-list { display: flex; flex-direction: column; gap: 12px; }
+        
+        /* 🏛️ 수집된 데이터 카드 스타일 */
+        .welfare-card { background: white; padding: 22px; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); border-left: 6px solid var(--point-sky); text-decoration: none; color: inherit; display: block; transition: 0.2s; }
+        .welfare-card:active { transform: scale(0.98); background: #f8fafc; }
+        .dept { font-size: 11px; color: var(--point-sky); font-weight: 800; margin-bottom: 8px; display: block; }
+        .title { font-size: 17px; font-weight: 800; margin-bottom: 10px; display: block; color: #0f172a; line-height: 1.4; }
+        .info-row { display: flex; justify-content: space-between; align-items: center; }
+        .region { font-size: 13px; color: var(--sub-text); }
+        .deadline { font-size: 13px; color: #ef4444; font-weight: 800; background: #fee2e2; padding: 4px 8px; border-radius: 6px; }
+        
+        .status-msg { text-align: center; padding: 50px 20px; color: var(--sub-text); }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🔍 정책 서비스 찾기</h1>
+    </header>
+
+    <div class="search-container">
+        <div class="input-group">
+            <input type="text" id="searchInput" placeholder="정책명으로 검색해보세요" onkeyup="filterResults()">
+            <button class="btn-search">검색</button>
+        </div>
+    </div>
+
+    <div id="content-area">
+        <div id="list-title" class="section-title">실시간 복지서비스</div>
+        <div id="resultArea" class="result-list">
+            </div>
+    </div>
+
+    <script>
+        let allPolicies = []; // 전체 데이터를 담을 변수
+
+        // 1. crawler.js가 만든 policies.json 파일을 읽어오는 함수
+        async function loadInitialData() {
+            const resultArea = document.getElementById('resultArea');
+            try {
+                // 이 부분이 핵심! crawler.js 실행 결과인 json 파일을 가져옵니다.
+                const response = await fetch('policies.json');
+                if (!response.ok) throw new Error('파일 없음');
+                
+                allPolicies = await response.json();
+                displayData(allPolicies);
+            } catch (e) {
+                resultArea.innerHTML = `
+                    <div class="status-msg">
+                        <p>데이터 파일(policies.json)을 찾을 수 없습니다.<br><br>
+                        <b>1. crawler.js를 실행했나요?<br>
+                        2. HTML과 같은 폴더에 파일이 있나요?</b></p>
+                    </div>`;
+            }
+        }
+
+        // 2. 화면에 데이터를 그려주는 함수
+        function displayData(data) {
+            const resultArea = document.getElementById('resultArea');
+            resultArea.innerHTML = '';
+
+            data.forEach(item => {
+                const card = document.createElement('a');
+                card.className = 'welfare-card';
+                card.href
