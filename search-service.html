@@ -8,23 +8,18 @@
     <style>
         :root { --main-sky: #7dd3fc; --point-sky: #0ea5e9; --bg-gray: #f0f9ff; --text-black: #1e293b; --sub-text: #64748b; }
         body { font-family: 'NanumSquareRound', sans-serif; background: var(--bg-gray); margin: 0; padding: 20px; color: var(--text-black); }
-        
         header { padding: 10px 0 20px; }
         h1 { font-size: 24px; font-weight: 800; color: var(--point-sky); margin: 0; }
 
-        /* 검색창 영역 */
         .search-container { position: sticky; top: 10px; z-index: 100; background: white; padding: 15px; border-radius: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.05); margin-bottom: 25px; }
         .input-group { display: flex; gap: 10px; }
         input { flex: 1; border: 2px solid #e2e8f0; padding: 12px 15px; border-radius: 12px; font-size: 16px; outline: none; font-family: inherit; }
-        .btn-search { background: var(--point-sky); color: white; border: none; padding: 0 20px; border-radius: 12px; font-weight: 800; cursor: pointer; }
-
+        
         .section-title { font-size: 16px; font-weight: 800; margin: 10px 0 15px 5px; }
         .result-list { display: flex; flex-direction: column; gap: 12px; }
         
-        /* 🏛️ 수집된 데이터 카드 스타일 */
         .welfare-card { background: white; padding: 22px; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); border-left: 6px solid var(--point-sky); text-decoration: none; color: inherit; display: block; transition: 0.2s; }
-        .welfare-card:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0,0,0,0.08); }
-        .welfare-card:active { transform: scale(0.98); background: #f8fafc; }
+        .welfare-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
         
         .dept { font-size: 11px; color: var(--point-sky); font-weight: 800; margin-bottom: 8px; display: block; }
         .title { font-size: 17px; font-weight: 800; margin-bottom: 10px; display: block; color: #0f172a; line-height: 1.4; }
@@ -32,8 +27,7 @@
         .region { font-size: 13px; color: var(--sub-text); }
         .deadline { font-size: 13px; color: #ef4444; font-weight: 800; background: #fee2e2; padding: 4px 8px; border-radius: 6px; }
         
-        .status-msg { text-align: center; padding: 50px 20px; color: var(--sub-text); }
-        .hidden { display: none; }
+        .status-msg { text-align: center; padding: 50px 20px; color: var(--sub-text); font-weight: bold; }
     </style>
 </head>
 <body>
@@ -44,15 +38,15 @@
 
     <div class="search-container">
         <div class="input-group">
-            <input type="text" id="searchInput" placeholder="정책명으로 검색해보세요" onkeyup="filterResults()">
-            <button class="btn-search">검색</button>
+            <input type="text" id="searchInput" placeholder="정책명이나 키워드로 검색 (예: 청년, 스마트)" onkeyup="filterResults()">
         </div>
     </div>
 
     <div id="content-area">
-        <div id="list-title" class="section-title">실시간 복지서비스</div>
+        <div id="list-title" class="section-title">실시간 수집된 정책 (100건)</div>
         <div id="resultArea" class="result-list">
-            </div>
+            <div class="status-msg">데이터를 불러오고 있습니다...</div>
+        </div>
     </div>
 
     <script>
@@ -60,21 +54,21 @@
 
         async function loadInitialData() {
             const resultArea = document.getElementById('resultArea');
+            
+            // 현재 페이지의 경로를 파악해서 json 파일의 위치를 찾습니다.
+            const currentPath = window.location.pathname;
+            const jsonPath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1) + 'policies.json';
+
             try {
-                // 깃허브 액션이 만들어준 파일을 가져옵니다.
-                // 캐시 방지를 위해 랜덤 쿼리를 살짝 붙여줍니다.
-                const response = await fetch('policies.json?t=' + new Date().getTime());
-                if (!response.ok) throw new Error('파일 없음');
+                const response = await fetch(jsonPath + '?v=' + Math.random());
+                if (!response.ok) throw new Error('데이터 파일을 찾을 수 없습니다.');
                 
                 allPolicies = await response.json();
+                console.log("로드된 데이터:", allPolicies); // 개발자 도구 확인용
                 displayData(allPolicies);
             } catch (e) {
-                resultArea.innerHTML = `
-                    <div class="status-msg">
-                        <p>데이터를 불러오는 중입니다...<br>
-                        (파일이 아직 생성 중이거나 깃허브 반영에 시간이 걸릴 수 있습니다.)</p>
-                    </div>`;
-                console.error(e);
+                console.error("로드 에러:", e);
+                resultArea.innerHTML = `<div class="status-msg">⚠️ 데이터를 불러오지 못했습니다.<br>policies.json 파일이 같은 폴더에 있는지 확인해주세요.</div>`;
             }
         }
 
@@ -90,9 +84,8 @@
             data.forEach(item => {
                 const card = document.createElement('a');
                 card.className = 'welfare-card';
-                card.href = item.link || '#';
+                card.href = item.link;
                 card.target = "_blank";
-                
                 card.innerHTML = `
                     <span class="dept">${item.source}</span>
                     <span class="title">${item.title}</span>
@@ -109,12 +102,12 @@
             const query = document.getElementById('searchInput').value.toLowerCase();
             const filtered = allPolicies.filter(p => 
                 p.title.toLowerCase().includes(query) || 
-                p.source.toLowerCase().includes(query) ||
-                p.region.toLowerCase().includes(query)
+                p.source.toLowerCase().includes(query)
             );
             displayData(filtered);
         }
 
+        // 페이지 로드 시 실행
         window.onload = loadInitialData;
     </script>
 </body>
