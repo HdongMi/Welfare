@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>복지도움 요청방법</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquareRound@master/nanumsquareround.min.css">
+    <style>
+        :root { --main-sky: #7dd3fc; --point-sky: #0ea5e9; --bg-gray: #f0f9ff; --text-black: #1e293b; --sub-text: #64748b; }
+        body { font-family: 'NanumSquareRound', sans-serif; background: var(--bg-gray); margin: 0; padding: 30px 20px; }
+        h1 { font-size: 26px; font-weight: 800; color: var(--point-sky); margin-bottom: 25px; }
+        .step-container { display: flex; flex-direction: column; gap: 15px; }
+        .step-card { background: white; padding: 22px; border-radius: 22px; display: flex; align-items: flex-start; box-shadow: 0 4px 10px rgba(0,0,0,0.01); }
+        .step-num { background: var(--main-sky); color: white; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; margin-right: 15px; flex-shrink: 0; font-size: 13px; }
+        .step-content b { font-size: 17px; display: block; margin-bottom: 6px; color: var(--text-black); }
+        .step-content p { font-size: 14px; color: var(--sub-text); margin: 0; line-height: 1.5; }
+        .call-btn { display: flex; align-items: center; justify-content: center; background: var(--point-sky); color: white; padding: 20px; border-radius: 20px; text-decoration: none; font-weight: 800; margin-top: 30px; font-size: 17px; box-shadow: 0 8px 20px rgba(14, 165, 233, 0.2); }
+        .call-btn span { margin-right: 8px; font-size: 20px; }
+    </style>
+</head>
+<body>
+    <h1>도움이 필요하신가요?</h1>
+    
+    <div class="step-container">
+        <div class="step-card">
+            <div class="step-num">1</div>
+            <div class="step-content">
+                <b>복지로 온라인 신청</b>
+                <p>복지로 홈페이지나 앱의 '복지도움 요청' 메뉴에서 간편하게 신청하세요.</p>
+            </div>
+        </div>
+        <div class="step-card">
+            <div class="step-num">2</div>
+            <div class="step-content">
+                <b>가까운 주민센터 방문</b>
+                <p>거주지 주민센터를 방문하여 상담을 통해 긴급 복지 지원을 요청할 수 있습니다.</p>
+            </div>
+        </div>
+    </div>
+
+    <a href="tel:129" class="call-btn"><span>📞</span>보건복지 상담센터 129</a>
+</body>
+</html>
