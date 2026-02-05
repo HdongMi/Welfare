@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>복지멤버십 올인원 가이드</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquareRound@master/nanumsquareround.min.css">
+    
+    <script>
+        (function() {
+            if (sessionStorage.getItem('welfare_guide_viewed') === 'true') {
+                document.documentElement.style.setProperty('--landing-display', 'none');
+            }
+        })();
+    </script>
+
+    <style>
+        :root { 
+            --main-sky: #7dd3fc; 
+            --point-sky: #0ea5e9; 
+            --bg-gray: #f0f9ff; 
+            --text-black: #1e293b; 
+            --sub-text: #64748b;
+            --landing-display: flex;
+        }
+
+        /* 🚀 스켈레톤 & 애니메이션 */
+        .skeleton {
+            background: linear-gradient(110deg, #e0f2fe 8%, #f0f9ff 18%, #e0f2fe 33%);
+            border-radius: 5px; background-size: 200% 100%; animation: 1.5s shine linear infinite;
+        }
+        @keyframes shine { to { background-position-x: -200%; } }
+        .skeleton-text { height: 16px; width: 100%; margin-bottom: 8px; }
+
+        /* ✨ 시그니처 스플래시 화면 */
+        #landingPage { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; display: var(--landing-display); flex-direction: column; justify-content: center; align-items: center; z-index: 10000; transition: opacity 0.5s ease; text-align: center; }
+        .landing-logo { font-size: 80px; margin-bottom: 20px; animation: bounce 2s infinite; }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-30px);}
+            60% {transform: translateY(-15px);}
+        }
+        .landing-title { font-size: 28px; font-weight: 800; color: var(--point-sky); margin: 0; }
+        .subtitle { font-size: 16px; color: var(--sub-text); margin: 15px 0 40px; line-height: 1.5; }
+        .start-btn { background: var(--main-sky); color: white; border: none; padding: 18px 60px; border-radius: 50px; font-size: 18px; font-weight: 800; cursor: pointer; box-shadow: 0 10px 20px rgba(125, 211, 252, 0.4); }
+        .fade-out { opacity: 0; visibility: hidden; }
+
+        /* 🌀 시그니처 로딩 오버레이 */
+        .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.95); display: flex; justify-content: center; align-items: center; z-index: 20000; flex-direction: column; }
+        .hidden { display: none !important; }
+        .spinner { width: 50px; height: 50px; border: 5px solid #f3f3f3; border-top: 5px solid var(--point-sky); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .loading-msg { font-weight: 800; color: var(--point-sky); font-size: 16px; text-align: center; white-space: pre-wrap; }
+
+        /* 메인 UI 스타일 */
+        body { font-family: 'NanumSquareRound', sans-serif; background: var(--bg-gray); margin: 0; padding: 20px; color: var(--text-black); -webkit-tap-highlight-color: transparent; }
+        header { margin-bottom: 25px; }
+        h1 { font-size: 24px; font-weight: 800; color: var(--point-sky); margin: 0; }
+        .sub-title { font-size: 14px; color: var(--sub-text); margin-top: 5px; }
+
+        /* 메뉴 구성 */
+        .menu-container { display: flex; flex-direction: column; gap: 12px; }
+        .menu-row { display: flex; gap: 12px; } /* 가로 배치를 위한 로우 전용 */
+        
+        .menu-item { background: white; padding: 18px; border-radius: 20px; text-decoration: none; color: inherit; box-shadow: 0 4px 12px rgba(0,0,0,0.02); display: flex; align-items: center; transition: 0.2s; flex: 1; }
+        .menu-item:active { transform: scale(0.97); background: #f0f9ff; }
+        .menu-item .icon { font-size: 30px; margin-right: 15px; width: 45px; text-align: center; }
+        .menu-item .label { font-size: 16px; font-weight: 800; display: block; }
+        .menu-item .desc { font-size: 12px; color: var(--sub-text); margin-top: 2px; }
+
+        /* 가로 배치용 아이템은 세로 정렬로 변경하여 가독성 확보 */
+        .menu-item.half { flex-direction: column; align-items: flex-start; padding: 20px 18px; }
+        .menu-item.half .icon { margin-right: 0; margin-bottom: 10px; width: auto; text-align: left; }
+        .menu-item.half .desc { font-size: 11px; word-break: keep-all; }
+
+        /* 뉴스 묶음 카드 */
+        .section-title { font-size: 16px; font-weight: 800; margin: 30px 0 12px 5px; color: #374151; display: flex; align-items: center; }
+        .section-title::before { content: '🩵'; margin-right: 8px; }
+        .news-bundle { background: white; border-radius: 20px; padding: 5px 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+        .news-item { display: block; text-decoration: none; color: inherit; padding: 18px 0; border-bottom: 1px solid #f1f5f9; cursor: pointer; }
+        .news-item:last-child { border-bottom: none; }
+        .news-item .news-title { font-size: 14px; font-weight: 700; color: var(--text-black); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .news-item .news-date { font-size: 11px; color: var(--sub-text); margin-top: 6px; display: block; }
+    </style>
+</head>
+<body>
+
+    <div id="landingPage">
+        <div class="landing-logo">🩵</div>
+        <h1 class="landing-title">복지멤버십 가이드</h1>
+        <p class="subtitle">나에게 꼭 필요한 복지 정보를<br>시원하고 투명하게 알려드려요.</p>
+        <button id="startBtn" class="start-btn">시작하기</button>
+    </div>
+
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <p id="loadingText" class="loading-msg">정보를 불러오고 있습니다...</p>
+    </div>
+
+    <div id="mainContent">
+        <header>
+            <h1>복지멤버십 가이드</h1>
+            <p class="sub-title">당신의 권리, 맞춤형으로 챙겨보세요.</p>
+        </header>
+
+        <nav class="menu-container">
+            <a href="intro.html" class="menu-item nav-link" data-label="소개 페이지">
+                <span class="icon">📝</span>
+                <div><span class="label">복지멤버십 소개</span><span class="desc">나를 찾아오는 복지, 맞춤형 급여 안내</span></div>
+            </a>
+            <a href="request.html" class="menu-item nav-link" data-label="도움 요청">
+                <span class="icon">🆘</span>
+                <div><span class="label">복지도움 요청방법</span><span class="desc">어려운 이웃과 나를 돕는 간편 신청</span></div>
+            </a>
+            <a href="calc.html" class="menu-item nav-link" data-label="모의계산">
+                <span class="icon">🧮</span>
+                <div><span class="label">복지멤버십 모의계산</span><span class="desc">내가 받을 수 있는 급여 미리 확인하기</span></div>
+            </a>
+
+            <div class="menu-row">
+                <a href="search-service.html" class="menu-item half nav-link" data-label="서비스 찾기">
+                    <span class="icon">🔍</span>
+                    <div><span class="label">서비스 찾기</span><span class="desc">전국 맞춤형 혜택 실시간 검색</span></div>
+                </a>
+                <a href="volunteer.html" class="menu-item half nav-link" data-label="봉사 정보">
+                    <span class="icon">🤝</span>
+                    <div><span class="label">봉사 모집</span><span class="desc">주변 따뜻한 나눔의 손길 찾기</span></div>
+                </a>
+            </div>
+        </nav>
+
+        <div class="section-title">실시간 복지 소식</div>
+        <div class="news-bundle" id="news-list">
+            <div class="news-item"><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text" style="width:30%"></div></div>
+        </div>
+    </div>
+
+    <script>
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const loadingText = document.getElementById('loadingText');
+
+        function showLoading(msg) {
+            loadingText.innerText = msg;
+            loadingOverlay.classList.remove('hidden');
+        }
+
+        document.getElementById('startBtn').addEventListener('click', function() {
+            const landing = document.getElementById('landingPage');
+            sessionStorage.setItem('welfare_guide_viewed', 'true');
+            landing.classList.add('fade-out');
+            setTimeout(() => { landing.remove(); }, 500);
+        });
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const label = this.getAttribute('data-label');
+                showLoading(`${label}로 이동하고 있습니다...`);
+            });
+        });
+
+        async function fetchWelfareInfo() {
+            const newsContainer = document.getElementById('news-list');
+            const keywords = ['복지', '복지멤버십', '복지포인트', '복지서비스'];
+            const searchQuery = encodeURIComponent(`(${keywords.join(' OR ')})`);
+            const rssUrl = `https://news.google.com/rss/search?q=${searchQuery}+when:7d&hl=ko&gl=KR&ceid=KR:ko`;
+            const apiTarget = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+
+            try {
+                const response = await fetch(apiTarget);
+                const data = await response.json();
+                newsContainer.innerHTML = '';
+
+                if (data.items && data.items.length > 0) {
+                    const sortedItems = data.items.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+                    sortedItems.slice(0, 5).forEach(item => {
+                        const div = document.createElement('div');
+                        div.className = 'news-item';
+                        const pubDate = new Date(item.pubDate);
+                        const dateStr = pubDate.getFullYear() + '-' + String(pubDate.getMonth() + 1).padStart(2, '0') + '-' + String(pubDate.getDate()).padStart(2, '0');
+                        div.innerHTML = `<span class="news-title">${item.title}</span><span class="news-date">${dateStr} | 맞춤 복지 뉴스</span>`;
+                        div.addEventListener('click', () => {
+                            showLoading("뉴스를 읽어오고 있습니다.\n잠시만 기다려 주세요...");
+                            setTimeout(() => { window.location.href = item.link; }, 300);
+                        });
+                        newsContainer.appendChild(div);
+                    });
+                }
+            } catch (e) {
+                newsContainer.innerHTML = '<div class="news-item"><span class="news-title">정보를 불러올 수 없습니다.</span></div>';
+            }
+        }
+
+        window.onload = fetchWelfareInfo;
+        window.onpageshow = (event) => {
+            if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+                loadingOverlay.classList.add('hidden');
+            }
+        };
+    </script>
+</body>
+</html>
