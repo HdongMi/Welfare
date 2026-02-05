@@ -18,7 +18,7 @@
         .section-title { font-size: 16px; font-weight: 800; margin: 10px 0 15px 5px; }
         .result-list { display: flex; flex-direction: column; gap: 12px; }
         
-        /* 🏛️ 카드 스타일 수정: 왼쪽 포인트 선 제거 및 깔끔한 라운딩 */
+        /* 카드 스타일: 왼쪽 포인트 제거 및 미세한 테두리 */
         .welfare-card { 
             background: white; 
             padding: 22px; 
@@ -28,13 +28,25 @@
             color: inherit; 
             display: block; 
             transition: 0.2s; 
-            border: 1px solid rgba(0,0,0,0.03); /* 아주 연한 테두리 추가 */
+            border: 1px solid rgba(0,0,0,0.03); 
         }
         .welfare-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
         
         .dept { font-size: 11px; color: var(--point-sky); font-weight: 800; margin-bottom: 8px; display: block; }
         .title { font-size: 17px; font-weight: 800; color: #0f172a; line-height: 1.4; }
         
+        /* 📅 날짜 태그 스타일 추가 */
+        .date-info { 
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 12px;
+            color: #ef4444; 
+            font-weight: 700;
+            background: #fee2e2;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
         .status-msg { text-align: center; padding: 50px 20px; color: var(--sub-text); font-weight: bold; }
     </style>
 </head>
@@ -66,6 +78,7 @@
             const jsonPath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1) + 'policies.json';
 
             try {
+                // 캐시 방지를 위해 랜덤 쿼리 추가
                 const response = await fetch(jsonPath + '?v=' + Math.random());
                 if (!response.ok) throw new Error('파일 없음');
                 
@@ -91,10 +104,11 @@
                 card.href = item.link;
                 card.target = "_blank";
                 
-                // 💡 여기서 '전국', '상세참조' 영역을 완전히 제거했습니다.
+                // 제목 아래에 신청기간(deadline)을 추가했습니다.
                 card.innerHTML = `
                     <span class="dept">${item.source}</span>
                     <span class="title">${item.title}</span>
+                    <div class="date-info">📅 신청기간: ${item.deadline}</div>
                 `;
                 resultArea.appendChild(card);
             });
