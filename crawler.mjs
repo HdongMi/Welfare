@@ -8,7 +8,7 @@ async function run() {
     const SERVICE_KEY = "e8e40ea23b405a5abba75382a331e61f9052570e9e95a7ca6cf5db14818ba22b";
     const filePath = path.join(process.cwd(), "policies.json");
     
-    // 2026년 기준 최신 데이터를 가져오는 주소
+    // 2026년 기준 최신 데이터를 가져오는 주소 (pblancServiceStartDate 파라미터 유지)
     const API_URL = `https://apis.data.go.kr/1421000/mssBizService_v2/getbizList_v2?serviceKey=${SERVICE_KEY}&pageNo=1&numOfRows=100&returnType=json&pblancServiceStartDate=20260101`;
 
     try {
@@ -57,18 +57,31 @@ async function run() {
             if (!title || seenTitles.has(title)) return null;
             seenTitles.add(title);
 
-            // --- 📅 날짜 처리 로직 시작 ---
-            // API의 시작일/종료일 데이터를 가져와서 YYYY-MM-DD 형태로 포맷팅합니다.
-            const rawStart = getV(item.pblancServiceStartDate); // 예: 20260130
-            const rawEnd = getV(item.pblancServiceEndDate);     // 예: 20260220
+            // --- 📅 날짜 처리 로직 수정 시작 ---
+            // API 응답 필드명이 pblancStartDate(공고시작일)인 경우가 많으므로 교차 체크합니다.
+            const rawStart = String(getV(item.pblancStartDate) || getV(item.pblancServiceStartDate) || ""); 
+            const rawEnd = String(getV(item.pblancEndDate) || getV(item.pblancServiceEndDate) || "");     
             
             let deadline = "상세참조";
-            if (rawStart && rawEnd) {
-                const start = `${rawStart.substring(0,4)}-${rawStart.substring(4,6)}-${rawStart.substring(6,8)}`;
-                const end = `${rawEnd.substring(0,4)}-${rawEnd.substring(4,6)}-${rawEnd.substring(6,8)}`;
-                deadline = `${start} ~ ${end}`;
+
+            // YYYYMMDD 형식을 YYYY-MM-DD로 변환하는 헬퍼 함수
+            const formatDate = (dateStr) => {
+                const clean = dateStr.replace(/[^0-9]/g, '');
+                if (clean.length >= 8) {
+                    return `${clean.substring(0,4)}-${clean.substring(4,6)}-${clean.substring(6,8)}`;
+                }
+                return null;
+            };
+
+            const startFormatted = formatDate(rawStart);
+            const endFormatted = formatDate(rawEnd);
+
+            if (startFormatted && endFormatted) {
+                deadline = `${startFormatted} ~ ${endFormatted}`;
+            } else if (startFormatted) {
+                deadline = `${startFormatted} ~ 상세참조`;
             }
-            // --- 📅 날짜 처리 로직 끝 ---
+            // --- 📅 날짜 처리 로직 수정 끝 ---
 
             const cleanApiTitle = title.replace(/\s+/g, '').substring(0, 8);
             const match = siteData.find(sd => sd.text.includes(cleanApiTitle));
@@ -81,7 +94,7 @@ async function run() {
             return {
                 title,
                 region: getV(item.areaNm) || "전국",
-                deadline: deadline, // 가공된 날짜가 들어갑니다.
+                deadline: deadline,
                 source: "중소벤처기업부",
                 link: finalLink
             };
