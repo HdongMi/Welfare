@@ -25,7 +25,6 @@
             --landing-display: flex;
         }
 
-        /* ✨ 화려하고 우아한 연하늘색 구름 배경 디자인 */
         body { 
             font-family: 'NanumSquareRound', sans-serif; 
             margin: 0; 
@@ -34,12 +33,10 @@
             -webkit-tap-highlight-color: transparent;
             min-height: 100vh;
             overflow-x: hidden;
-            /* 연한 파스텔톤 그라데이션 */
             background: linear-gradient(180deg, #f0f9ff 0%, #bae6fd 50%, #e0f2fe 100%);
             background-attachment: fixed;
         }
 
-        /* ☁️ 화려한 구름 및 빛 효과 */
         .bg-deco {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -48,7 +45,6 @@
             pointer-events: none;
         }
 
-        /* 몽글몽글한 큰 구름들 */
         .cloud-item {
             position: absolute;
             background: white;
@@ -61,7 +57,6 @@
         .c2 { width: 500px; height: 400px; bottom: -100px; right: -150px; animation-duration: 50s; opacity: 0.4; }
         .c3 { width: 300px; height: 200px; top: 40%; left: 50%; transform: translateX(-50%); filter: blur(70px); opacity: 0.3; }
 
-        /* 빛 내림 효과 (Ray) */
         .sun-ray {
             position: absolute;
             top: -50%; left: 50%;
@@ -82,7 +77,6 @@
             to { transform: translate(-50%, 0) rotate(360deg); }
         }
 
-        /* 🌀 중앙 로딩 오버레이 */
         #newsOverlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(255, 255, 255, 0.8);
@@ -97,7 +91,6 @@
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .loading-text { font-weight: 700; color: var(--text-black); font-size: 16px; }
 
-        /* 🎈 스플래시 화면 */
         #landingPage { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: white; display: var(--landing-display); 
@@ -114,7 +107,6 @@
         }
         .fade-out { opacity: 0; visibility: hidden; }
 
-        /* 📍 헤더 디자인 */
         header { padding: 40px 10px 30px; margin-bottom: 20px; position: relative; }
         .live-badge { display: inline-flex; align-items: center; background: white; padding: 6px 12px; border-radius: 12px; font-size: 11px; font-weight: 700; color: var(--point-sky); margin-bottom: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
         .live-badge::before { content: ''; width: 6px; height: 6px; background: #34d399; border-radius: 50%; margin-right: 8px; animation: pulse 2s infinite; }
@@ -123,7 +115,6 @@
         h1 { font-size: 28px; font-weight: 800; margin: 0; letter-spacing: -0.8px; }
         .sub-title { font-size: 15px; color: var(--sub-text); margin-top: 8px; font-weight: 500; }
 
-        /* 카드 디자인 - 유리 질감 극대화 */
         .menu-container { display: flex; flex-direction: column; gap: 14px; position: relative; }
         .menu-row { display: flex; gap: 14px; }
         .menu-item { 
@@ -154,7 +145,9 @@
         }
         .menu-item.main-feature .label { color: var(--point-sky); font-size: 17px; }
 
-        /* 📰 뉴스 섹션 */
+        /* ✅ 카드 테두리 포인트 스타일 */
+        .blue-border { border: 1.5px solid var(--point-sky) !important; }
+
         .section-title { font-size: 17px; font-weight: 800; margin: 35px 0 15px 5px; color: #1e293b; }
         .news-bundle { 
             background: rgba(255, 255, 255, 0.6); 
@@ -205,19 +198,26 @@
 
         <nav class="menu-container">
             <div class="menu-row">
-                <a href="search-service.html" class="menu-item main-feature">
+                <a href="search-service.html" class="menu-item main-feature blue-border">
                     <span class="icon">🔍</span>
                     <div><span class="label">서비스 찾기</span><span class="desc">전국 맞춤 혜택을<br>정교하게 검색합니다</span></div>
                 </a>
-                <a href="volunteer.html" class="menu-item main-feature">
+                <a href="volunteer.html" class="menu-item main-feature blue-border">
                     <span class="icon">🤝</span>
                     <div><span class="label">봉사 모집</span><span class="desc">주변의 따뜻한 나눔을<br>연결해 드립니다</span></div>
                 </a>
             </div>
+            
             <a href="intro.html" class="menu-item">
                 <span class="icon">📄</span>
                 <div><span class="label">복지멤버십 소개</span><span class="desc">제도와 혜택을 상세히 안내합니다</span></div>
             </a>
+
+            <a href="apply.html" class="menu-item blue-border">
+                <span class="icon">✨</span>
+                <div><span class="label">실시간 복지서비스</span><span class="desc">복지로 연동 실시간 정책 신청 가이드</span></div>
+            </a>
+
             <a href="request.html" class="menu-item">
                 <span class="icon">📞</span>
                 <div><span class="label">복지도움 요청방법</span><span class="desc">도움이 필요할 때 가장 빠른 길</span></div>
