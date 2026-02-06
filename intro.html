@@ -6,14 +6,53 @@
     <title>복지멤버십 소개</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquareRound@master/nanumsquareround.min.css">
     <style>
-        :root { --main-sky: #7dd3fc; --point-sky: #0ea5e9; --bg-gray: #f0f9ff; --text-black: #1e293b; --sub-text: #64748b; }
+        :root { 
+            --main-sky: #7dd3fc; 
+            --point-sky: #0ea5e9; 
+            --bg-gray: #f0f9ff; 
+            --text-black: #1e293b; 
+            --sub-text: #64748b; 
+        }
         body { font-family: 'NanumSquareRound', sans-serif; background: var(--bg-gray); margin: 0; padding: 30px 20px; color: var(--text-black); line-height: 1.6; }
+        
         header { margin-bottom: 30px; }
         h1 { font-size: 26px; font-weight: 800; color: var(--point-sky); margin: 0 0 10px; }
+        
         .card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); margin-bottom: 20px; border: 1px solid rgba(125, 211, 252, 0.2); }
         .card h2 { font-size: 18px; margin-top: 0; color: var(--text-black); border-left: 4px solid var(--main-sky); padding-left: 12px; margin-bottom: 12px; }
         .card p { font-size: 14px; color: var(--sub-text); margin: 0; }
         .highlight { color: var(--point-sky); font-weight: 800; }
+
+        /* 🚀 버튼 스타일 수정 */
+        .action-area { margin-top: 40px; text-align: center; }
+        .link-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--point-sky);
+            color: white;
+            text-decoration: none;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 800;
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
+            transition: transform 0.2s, background 0.2s;
+            width: 80%;
+            max-width: 300px;
+        }
+        .link-btn:active {
+            transform: scale(0.95);
+            background: #0369a1;
+        }
+        /* [삭제됨] .link-btn::after 화살표 스타일 제거 */
+
+        .footer-info {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 15px;
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -30,6 +69,13 @@
     <div class="card">
         <h2>어떤 혜택이 있나요?</h2>
         <p>내가 몰라서 놓쳤던 국가 장학금, 기초연금, 아동수당 등 수만 가지 복지 사업 중 나에게 딱 맞는 정보만 문자나 앱으로 보내드립니다.</p>
+    </div>
+
+    <div class="action-area">
+        <a href="https://www.bokjiro.go.kr" target="_blank" class="link-btn">
+            복지 서비스 찾아보기
+        </a>
+        <span class="footer-info">버튼을 클릭하면 복지로 홈페이지로 이동합니다.</span>
     </div>
 </body>
 </html>
