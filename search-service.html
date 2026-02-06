@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>복지 서비스 찾기</title>
+    <title>정책 서비스 찾기</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquareRound@master/nanumsquareround.min.css">
     <style>
         :root { --main-sky: #7dd3fc; --point-sky: #0ea5e9; --bg-gray: #f0f9ff; --text-black: #1e293b; --sub-text: #64748b; }
@@ -33,11 +33,9 @@
         
         .dept-wrapper { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
         .dept { font-size: 11px; color: var(--point-sky); font-weight: 800; }
-        .region { font-size: 11px; color: var(--sub-text); background: #f1f5f9; padding: 2px 6px; border-radius: 4px; }
         
         .title { font-size: 17px; font-weight: 800; color: #0f172a; line-height: 1.4; display: block; }
         
-        /* 📅 날짜 태그 스타일: 가독성 강화 */
         .date-info { 
             display: inline-flex;
             align-items: center;
@@ -77,11 +75,9 @@
 
         async function loadInitialData() {
             const resultArea = document.getElementById('resultArea');
-            // JSON 파일 경로를 더 안전하게 잡습니다.
             const jsonPath = './policies.json';
 
             try {
-                // 캐시 방지를 위해 랜덤 쿼리 추가 (매번 최신 정보를 읽어옴)
                 const response = await fetch(jsonPath + '?t=' + new Date().getTime());
                 if (!response.ok) throw new Error('데이터 파일을 찾을 수 없습니다.');
                 
@@ -108,14 +104,11 @@
                 card.href = item.link;
                 card.target = "_blank";
                 
-                // 수집된 데이터의 deadline 필드를 안전하게 출력 (값이 없으면 상세참조로 표시)
                 const deadlineText = item.deadline || "상세참조";
-                
 
                 card.innerHTML = `
                     <div class="dept-wrapper">
                         <span class="dept">${item.source}</span>
-                        <span class="region">${regionText}</span>
                     </div>
                     <span class="title">${item.title}</span>
                     <div class="date-info">
@@ -135,13 +128,11 @@
 
             const filtered = allPolicies.filter(p => 
                 p.title.toLowerCase().includes(query) || 
-                p.source.toLowerCase().includes(query) ||
-                (p.region && p.region.toLowerCase().includes(query))
+                p.source.toLowerCase().includes(query)
             );
             displayData(filtered);
         }
 
-        // 페이지 로드 시 데이터 가져오기 실행
         window.addEventListener('DOMContentLoaded', loadInitialData);
     </script>
 </body>
