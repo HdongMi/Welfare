@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>정책 서비스 찾기</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquareRound@master/nanumsquareround.min.css">
+    <style>
+        /* 🎨 메인 홈의 화려한 배경 컬러와 주신 코드의 포인트 컬러 조합 */
+        :root { 
+            --main-sky: #bae6fd; 
+            --point-sky: #0ea5e9; 
+            --bg-gray: #f0f9ff; 
+            --text-black: #1e293b; 
+            --sub-text: #64748b; 
+        }
+
+        body { 
+            font-family: 'NanumSquareRound', sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            color: var(--text-black); 
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: linear-gradient(180deg, #f0f9ff 0%, #bae6fd 50%, #e0f2fe 100%);
+            background-attachment: fixed;
+        }
+
+        /* ✨ 배경 장식 (메인 홈 UI 유지) */
+        .bg-deco {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; overflow: hidden; pointer-events: none;
+        }
+        .cloud-item {
+            position: absolute; background: white; filter: blur(50px); border-radius: 50%;
+            opacity: 0.6; animation: drift linear infinite;
+        }
+        .c1 { width: 400px; height: 300px; top: -50px; left: -100px; animation-duration: 40s; }
+        .c2 { width: 500px; height: 400px; bottom: -100px; right: -150px; animation-duration: 50s; opacity: 0.4; }
+        @keyframes drift { 0% { transform: translate(0, 0) scale(1); } 50% { transform: translate(30px, 20px) scale(1.1); } 100% { transform: translate(0, 0) scale(1); } }
+
+        /* 📍 헤더 (주신 코드 구조 적용) */
+        header { padding: 10px 0 20px; }
+        h1 { font-size: 24px; font-weight: 800; color: var(--point-sky); margin: 0; }
+
+        /* 🔍 검색 컨테이너 (주신 코드의 sticky 및 스타일 적용) */
+        .search-container { 
+            position: sticky; 
+            top: 10px; 
+            z-index: 100; 
+            background: white; 
+            padding: 15px; 
+            border-radius: 20px; 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05); 
+            margin-bottom: 25px; 
+        }
+        .input-group { display: flex; gap: 10px; }
+        input { 
+            flex: 1; border: 2px solid #e2e8f0; padding: 12px 15px; 
+            border-radius: 12px; font-size: 16px; outline: none; font-family: inherit; 
+        }
+        
+        /* 📋 리스트 타이틀 및 카드 (주신 코드 UI 100% 참고) */
+        .section-title { font-size: 16px; font-weight: 800; margin: 10px 0 15px 5px; }
+        .result-list { display: flex; flex-direction: column; gap: 12px; }
+        
+        .welfare-card { 
+            background: white; 
+            padding: 22px; 
+            border-radius: 20px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02); 
+            text-decoration: none; 
+            color: inherit; 
+            display: block; 
+            transition: 0.2s; 
+            border: 1px solid rgba(0,0,0,0.03); 
+        }
+        .welfare-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+        
+        .dept-wrapper { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .dept { font-size: 11px; color: var(--point-sky); font-weight: 800; }
+        
+        .title { font-size: 17px; font-weight: 800; color: #0f172a; line-height: 1.4; display: block; }
+        
+        .date-info { 
+            display: inline-flex;
+            align-items: center;
+            margin-top: 12px;
+            font-size: 12px;
+            color: #ef4444; 
+            font-weight: 700;
+            background: #fee2e2;
+            padding: 5px 12px;
+            border-radius: 8px;
+        }
+
+        .status-msg { text-align: center; padding: 50px 20px; color: var(--sub-text); font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="bg-deco">
+        <div class="cloud-item c1"></div>
+        <div class="cloud-item c2"></div>
+    </div>
+
+    <header>
+        <h1>🔍 정책 서비스 찾기</h1>
+    </header>
+
+    <div class="search-container">
+        <div class="input-group">
+            <input type="text" id="searchInput" placeholder="정책명이나 키워드로 검색해보세요" onkeyup="filterResults()">
+        </div>
+    </div>
+
+    <div id="content-area">
+        <div id="list-title" class="section-title">실시간 수집된 정책</div>
+        <div id="resultArea" class="result-list">
+            <div class="status-msg">데이터를 불러오고 있습니다...</div>
+        </div>
+    </div>
+
+    <script>
+        let allPolicies = []; 
+
+        async function loadRealTimeData() {
+            const resultArea = document.getElementById('resultArea');
+            // 발급받으신 인증키 적용
+            const serviceKey = "e8e40ea23b405a5abba75382a331e61f9052570e9e95a7ca6cf5db14818ba22b";
+            const url = `https://apis.data.go.kr/B554287/NationalWelfareInformationsV001/getNationalWelfareInformationsV001?serviceKey=${serviceKey}&callTp=L&pageNo=1&numOfRows=20&dataType=JSON`;
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('데이터 로드 실패');
+                
+                const data = await response.json();
+                allPolicies = data.servList || [];
+                displayData(allPolicies);
+            } catch (e) {
+                console.error(e);
+                resultArea.innerHTML = `<div class="status-msg">⚠️ 실시간 데이터를 불러올 수 없습니다.</div>`;
+                // 에러 발생 시 참고용 샘플 데이터 표시
+                showDummy();
+            }
+        }
+
+        function displayData(data) {
+            const resultArea = document.getElementById('resultArea');
+            resultArea.innerHTML = '';
+
+            if (data.length === 0) {
+                resultArea.innerHTML = '<div class="status-msg">검색 결과가 없습니다.</div>';
+                return;
+            }
+
+            data.forEach(item => {
+                const card = document.createElement('a');
+                card.className = 'welfare-card';
+                card.href = `https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52005M.do?servId=${item.servId}`;
+                card.target = "_blank";
+                
+                const deadlineText = item.bizPrdEn || "상세참조";
+
+                card.innerHTML = `
+                    <div class="dept-wrapper">
+                        <span class="dept">${item.jurMnstNm || '중앙부처'}</span>
+                    </div>
+                    <span class="title">${item.servNm}</span>
+                    <div class="date-info">
+                        <span>📅 신청기간: ${deadlineText}</span>
+                    </div>
+                `;
+                resultArea.appendChild(card);
+            });
+        }
+
+        function filterResults() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            if (!query) {
+                displayData(allPolicies);
+                return;
+            }
+
+            const filtered = allPolicies.filter(p => 
+                p.servNm.toLowerCase().includes(query) || 
+                (p.jurMnstNm && p.jurMnstNm.toLowerCase().includes(query))
+            );
+            displayData(filtered);
+        }
+
+        function showDummy() {
+            const dummy = [
+                { servNm: "기초연금", jurMnstNm: "보건복지부", bizPrdEn: "상시", servId: "W00000000001" },
+                { servNm: "아동수당", jurMnstNm: "보건복지부", bizPrdEn: "상시", servId: "W00000000002" }
+            ];
+            allPolicies = dummy;
+            displayData(dummy);
+        }
+
+        window.addEventListener('DOMContentLoaded', loadRealTimeData);
+    </script>
+</body>
+</html>
