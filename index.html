@@ -60,7 +60,7 @@
 
         /* 메뉴 구성 */
         .menu-container { display: flex; flex-direction: column; gap: 12px; }
-        .menu-row { display: flex; gap: 12px; } /* 가로 배치를 위한 로우 전용 */
+        .menu-row { display: flex; gap: 12px; }
         
         .menu-item { background: white; padding: 18px; border-radius: 20px; text-decoration: none; color: inherit; box-shadow: 0 4px 12px rgba(0,0,0,0.02); display: flex; align-items: center; transition: 0.2s; flex: 1; }
         .menu-item:active { transform: scale(0.97); background: #f0f9ff; }
@@ -68,7 +68,6 @@
         .menu-item .label { font-size: 16px; font-weight: 800; display: block; }
         .menu-item .desc { font-size: 12px; color: var(--sub-text); margin-top: 2px; }
 
-        /* 가로 배치용 아이템은 세로 정렬로 변경하여 가독성 확보 */
         .menu-item.half { flex-direction: column; align-items: flex-start; padding: 20px 18px; }
         .menu-item.half .icon { margin-right: 0; margin-bottom: 10px; width: auto; text-align: left; }
         .menu-item.half .desc { font-size: 11px; word-break: keep-all; }
@@ -104,25 +103,25 @@
         </header>
 
         <nav class="menu-container">
-            <a href="intro.html" class="menu-item nav-link" data-label="소개 페이지">
+            <a href="intro.html" class="menu-item nav-link">
                 <span class="icon">📝</span>
                 <div><span class="label">복지멤버십 소개</span><span class="desc">나를 찾아오는 복지, 맞춤형 급여 안내</span></div>
             </a>
-            <a href="request.html" class="menu-item nav-link" data-label="도움 요청">
+            <a href="request.html" class="menu-item nav-link">
                 <span class="icon">📞</span>
                 <div><span class="label">복지도움 요청방법</span><span class="desc">어려운 이웃과 나를 돕는 간편 신청</span></div>
             </a>
-            <a href="calc.html" class="menu-item nav-link" data-label="모의계산">
+            <a href="calc.html" class="menu-item nav-link">
                 <span class="icon">🧮</span>
                 <div><span class="label">복지멤버십 모의계산</span><span class="desc">내가 받을 수 있는 급여 미리 확인하기</span></div>
             </a>
 
             <div class="menu-row">
-                <a href="search-service.html" class="menu-item half nav-link" data-label="서비스 찾기">
+                <a href="search-service.html" class="menu-item half nav-link">
                     <span class="icon">🔍</span>
                     <div><span class="label">서비스 찾기</span><span class="desc">전국 맞춤형 혜택 실시간 검색</span></div>
                 </a>
-                <a href="volunteer.html" class="menu-item half nav-link" data-label="봉사 정보">
+                <a href="volunteer.html" class="menu-item half nav-link">
                     <span class="icon">🤝</span>
                     <div><span class="label">봉사 모집</span><span class="desc">주변 따뜻한 나눔의 손길 찾기</span></div>
                 </a>
@@ -144,6 +143,7 @@
             loadingOverlay.classList.remove('hidden');
         }
 
+        // 스플래시 화면 시작하기 버튼
         document.getElementById('startBtn').addEventListener('click', function() {
             const landing = document.getElementById('landingPage');
             sessionStorage.setItem('welfare_guide_viewed', 'true');
@@ -151,13 +151,9 @@
             setTimeout(() => { landing.remove(); }, 500);
         });
 
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                const label = this.getAttribute('data-label');
-                showLoading(`${label}로 이동하고 있습니다...`);
-            });
-        });
+        // 📝 메뉴 버튼들의 로딩 로직은 삭제되었습니다. (기본 <a> 태그 이동)
 
+        // 구글 뉴스 RSS 수집 함수
         async function fetchWelfareInfo() {
             const newsContainer = document.getElementById('news-list');
             const keywords = ['복지', '복지멤버십', '복지포인트', '복지서비스'];
@@ -177,7 +173,10 @@
                         div.className = 'news-item';
                         const pubDate = new Date(item.pubDate);
                         const dateStr = pubDate.getFullYear() + '-' + String(pubDate.getMonth() + 1).padStart(2, '0') + '-' + String(pubDate.getDate()).padStart(2, '0');
+                        
                         div.innerHTML = `<span class="news-title">${item.title}</span><span class="news-date">${dateStr} | 맞춤 복지 뉴스</span>`;
+                        
+                        // 🌀 뉴스 아이템 클릭 시에만 로딩 바 활성화
                         div.addEventListener('click', () => {
                             showLoading("뉴스를 읽어오고 있습니다.\n잠시만 기다려 주세요...");
                             setTimeout(() => { window.location.href = item.link; }, 300);
@@ -191,6 +190,8 @@
         }
 
         window.onload = fetchWelfareInfo;
+
+        // 뒤로가기 시 로딩 오버레이 숨기기
         window.onpageshow = (event) => {
             if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
                 loadingOverlay.classList.add('hidden');
