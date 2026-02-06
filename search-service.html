@@ -18,7 +18,6 @@
         .section-title { font-size: 16px; font-weight: 800; margin: 10px 0 15px 5px; }
         .result-list { display: flex; flex-direction: column; gap: 12px; }
         
-        /* 카드 스타일: 왼쪽 포인트 제거 및 미세한 테두리 */
         .welfare-card { 
             background: white; 
             padding: 22px; 
@@ -32,19 +31,23 @@
         }
         .welfare-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
         
-        .dept { font-size: 11px; color: var(--point-sky); font-weight: 800; margin-bottom: 8px; display: block; }
-        .title { font-size: 17px; font-weight: 800; color: #0f172a; line-height: 1.4; }
+        .dept-wrapper { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .dept { font-size: 11px; color: var(--point-sky); font-weight: 800; }
+        .region { font-size: 11px; color: var(--sub-text); background: #f1f5f9; padding: 2px 6px; border-radius: 4px; }
         
-        /* 📅 날짜 태그 스타일 추가 */
+        .title { font-size: 17px; font-weight: 800; color: #0f172a; line-height: 1.4; display: block; }
+        
+        /* 📅 날짜 태그 스타일: 가독성 강화 */
         .date-info { 
-            display: inline-block;
-            margin-top: 10px;
+            display: inline-flex;
+            align-items: center;
+            margin-top: 12px;
             font-size: 12px;
             color: #ef4444; 
             font-weight: 700;
             background: #fee2e2;
-            padding: 4px 10px;
-            border-radius: 6px;
+            padding: 5px 12px;
+            border-radius: 8px;
         }
 
         .status-msg { text-align: center; padding: 50px 20px; color: var(--sub-text); font-weight: bold; }
@@ -74,18 +77,19 @@
 
         async function loadInitialData() {
             const resultArea = document.getElementById('resultArea');
-            const currentPath = window.location.pathname;
-            const jsonPath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1) + 'policies.json';
+            // JSON 파일 경로를 더 안전하게 잡습니다.
+            const jsonPath = './policies.json';
 
             try {
-                // 캐시 방지를 위해 랜덤 쿼리 추가
-                const response = await fetch(jsonPath + '?v=' + Math.random());
-                if (!response.ok) throw new Error('파일 없음');
+                // 캐시 방지를 위해 랜덤 쿼리 추가 (매번 최신 정보를 읽어옴)
+                const response = await fetch(jsonPath + '?t=' + new Date().getTime());
+                if (!response.ok) throw new Error('데이터 파일을 찾을 수 없습니다.');
                 
                 allPolicies = await response.json();
                 displayData(allPolicies);
             } catch (e) {
-                resultArea.innerHTML = `<div class="status-msg">⚠️ 데이터를 불러오지 못했습니다.</div>`;
+                console.error(e);
+                resultArea.innerHTML = `<div class="status-msg">⚠️ policies.json 파일을 찾을 수 없거나<br>데이터를 불러오지 못했습니다.</div>`;
             }
         }
 
@@ -104,26 +108,41 @@
                 card.href = item.link;
                 card.target = "_blank";
                 
-                // 제목 아래에 신청기간(deadline)을 추가했습니다.
+                // 수집된 데이터의 deadline 필드를 안전하게 출력 (값이 없으면 상세참조로 표시)
+                const deadlineText = item.deadline || "상세참조";
+                const regionText = item.region || "전국";
+
                 card.innerHTML = `
-                    <span class="dept">${item.source}</span>
+                    <div class="dept-wrapper">
+                        <span class="dept">${item.source}</span>
+                        <span class="region">${regionText}</span>
+                    </div>
                     <span class="title">${item.title}</span>
-                    <div class="date-info">📅 신청기간: ${item.deadline}</div>
+                    <div class="date-info">
+                        <span>📅 신청기간: ${deadlineText}</span>
+                    </div>
                 `;
                 resultArea.appendChild(card);
             });
         }
 
         function filterResults() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            if (!query) {
+                displayData(allPolicies);
+                return;
+            }
+
             const filtered = allPolicies.filter(p => 
                 p.title.toLowerCase().includes(query) || 
-                p.source.toLowerCase().includes(query)
+                p.source.toLowerCase().includes(query) ||
+                (p.region && p.region.toLowerCase().includes(query))
             );
             displayData(filtered);
         }
 
-        window.onload = loadInitialData;
+        // 페이지 로드 시 데이터 가져오기 실행
+        window.addEventListener('DOMContentLoaded', loadInitialData);
     </script>
 </body>
 </html>
