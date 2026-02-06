@@ -16,98 +16,183 @@
 
     <style>
         :root { 
-            --main-sky: #7dd3fc; 
+            --main-sky: #bae6fd; 
             --point-sky: #0ea5e9; 
-            --soft-sky: #e0f2fe;
+            --soft-sky: #f0f9ff;
             --bg-gray: #f8fafc; 
-            --text-black: #1e293b; 
-            --sub-text: #64748b;
+            --text-black: #0f172a; 
+            --sub-text: #475569;
             --landing-display: flex;
         }
 
-        /* ✨ 우아한 애니메이션 및 기본 설정 */
-        body { font-family: 'NanumSquareRound', sans-serif; background: var(--bg-gray); margin: 0; padding: 20px; color: var(--text-black); -webkit-tap-highlight-color: transparent; }
-        
-        /* 🌀 로딩 & 스플래시 */
-        #landingPage { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; display: var(--landing-display); flex-direction: column; justify-content: center; align-items: center; z-index: 10000; transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1); text-align: center; }
-        .landing-logo { font-size: 60px; margin-bottom: 24px; }
-        .start-btn { background: var(--point-sky); color: white; border: none; padding: 16px 50px; border-radius: 16px; font-size: 16px; font-weight: 700; cursor: pointer; transition: 0.3s; }
+        /* ✨ 화려하고 우아한 연하늘색 구름 배경 디자인 */
+        body { 
+            font-family: 'NanumSquareRound', sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            color: var(--text-black); 
+            -webkit-tap-highlight-color: transparent;
+            min-height: 100vh;
+            overflow-x: hidden;
+            /* 연한 파스텔톤 그라데이션 */
+            background: linear-gradient(180deg, #f0f9ff 0%, #bae6fd 50%, #e0f2fe 100%);
+            background-attachment: fixed;
+        }
+
+        /* ☁️ 화려한 구름 및 빛 효과 */
+        .bg-deco {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        /* 몽글몽글한 큰 구름들 */
+        .cloud-item {
+            position: absolute;
+            background: white;
+            filter: blur(50px);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: drift linear infinite;
+        }
+        .c1 { width: 400px; height: 300px; top: -50px; left: -100px; animation-duration: 40s; }
+        .c2 { width: 500px; height: 400px; bottom: -100px; right: -150px; animation-duration: 50s; opacity: 0.4; }
+        .c3 { width: 300px; height: 200px; top: 40%; left: 50%; transform: translateX(-50%); filter: blur(70px); opacity: 0.3; }
+
+        /* 빛 내림 효과 (Ray) */
+        .sun-ray {
+            position: absolute;
+            top: -50%; left: 50%;
+            width: 200%; height: 200%;
+            background: conic-gradient(from 180deg at 50% 50%, transparent 0deg, rgba(255,255,255,0.2) 20deg, transparent 40deg);
+            animation: rotateRay 60s linear infinite;
+            transform-origin: center;
+        }
+
+        @keyframes drift {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, 20px) scale(1.1); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
+        @keyframes rotateRay {
+            from { transform: translate(-50%, 0) rotate(0deg); }
+            to { transform: translate(-50%, 0) rotate(360deg); }
+        }
+
+        /* 🌀 중앙 로딩 오버레이 */
+        #newsOverlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            display: none; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 30000; backdrop-filter: blur(10px);
+        }
+        .spinner {
+            width: 40px; height: 40px; border: 4px solid var(--soft-sky);
+            border-top: 4px solid var(--point-sky); border-radius: 50%;
+            animation: spin 1s linear infinite; margin-bottom: 16px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .loading-text { font-weight: 700; color: var(--text-black); font-size: 16px; }
+
+        /* 🎈 스플래시 화면 */
+        #landingPage { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: white; display: var(--landing-display); 
+            flex-direction: column; justify-content: center; align-items: center; 
+            z-index: 10000; transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1); 
+            text-align: center; 
+        }
+        @keyframes softBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
+        .landing-logo { font-size: 80px; margin-bottom: 20px; display: inline-block; animation: softBounce 2s infinite ease-in-out; filter: drop-shadow(0 15px 10px rgba(0,0,0,0.1)); }
+        .start-btn { 
+            background: var(--point-sky); color: white; border: none; padding: 18px 60px; border-radius: 50px; 
+            font-size: 17px; font-weight: 700; cursor: pointer; transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.2);
+        }
         .fade-out { opacity: 0; visibility: hidden; }
 
-        /* 📍 헤더 디자인: 미니멀 & 클린 */
-        header { 
-            padding: 40px 10px 30px; 
-            margin-bottom: 20px;
-        }
-        .live-badge {
-            display: inline-flex; align-items: center; background: white; padding: 6px 12px; border-radius: 12px;
-            font-size: 11px; font-weight: 700; color: var(--point-sky); margin-bottom: 14px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-        .live-badge::before {
-            content: ''; width: 6px; height: 6px; background: #34d399; border-radius: 50%; 
-            margin-right: 8px; animation: pulse 2s infinite;
-        }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
-
-        h1 { font-size: 28px; font-weight: 800; color: var(--text-black); margin: 0; letter-spacing: -0.8px; }
-        .sub-title { font-size: 15px; color: var(--sub-text); margin-top: 8px; font-weight: 400; opacity: 0.8; }
-
-        /* 🏠 메뉴 레이아웃 */
-        .menu-container { display: flex; flex-direction: column; gap: 14px; }
-        .menu-row { display: flex; gap: 14px; }
+        /* 📍 헤더 디자인 */
+        header { padding: 40px 10px 30px; margin-bottom: 20px; position: relative; }
+        .live-badge { display: inline-flex; align-items: center; background: white; padding: 6px 12px; border-radius: 12px; font-size: 11px; font-weight: 700; color: var(--point-sky); margin-bottom: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .live-badge::before { content: ''; width: 6px; height: 6px; background: #34d399; border-radius: 50%; margin-right: 8px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
         
-        /* 공통 카드 스타일: 우아한 그림자 */
+        h1 { font-size: 28px; font-weight: 800; margin: 0; letter-spacing: -0.8px; }
+        .sub-title { font-size: 15px; color: var(--sub-text); margin-top: 8px; font-weight: 500; }
+
+        /* 카드 디자인 - 유리 질감 극대화 */
+        .menu-container { display: flex; flex-direction: column; gap: 14px; position: relative; }
+        .menu-row { display: flex; gap: 14px; }
         .menu-item { 
-            background: white; padding: 20px; border-radius: 24px; text-decoration: none; color: inherit; 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.02); display: flex; align-items: center; transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.8);
+            background: rgba(255, 255, 255, 0.6); 
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 20px; 
+            border-radius: 24px; 
+            text-decoration: none; 
+            color: inherit; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.02); 
+            display: flex; 
+            align-items: center; 
+            transition: all 0.3s ease; 
+            border: 1px solid rgba(255,255,255,0.7); 
         }
-        .menu-item:active { transform: scale(0.98); background: #f1f5f9; }
-
-        .menu-item .icon { font-size: 24px; margin-right: 18px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: var(--bg-gray); border-radius: 14px; }
+        .menu-item:active { transform: scale(0.96); background: rgba(255,255,255,0.8); }
+        .menu-item .icon { font-size: 24px; margin-right: 18px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: white; border-radius: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
         .menu-item .label { font-size: 16px; font-weight: 700; display: block; }
-        .menu-item .desc { font-size: 12px; color: var(--sub-text); margin-top: 4px; }
-
-        /* ✨ [핵심 강조] 우아한 포인트 카드 디자인 */
+        .menu-item .desc { font-size: 12px; color: var(--sub-text); margin-top: 4px; font-weight: 500; }
+        
         .menu-item.main-feature { 
             flex-direction: column; 
             align-items: flex-start; 
             padding: 24px; 
-            flex: 1;
-            background: linear-gradient(180deg, #ffffff 0%, #f0f9ff 100%);
-            border: 1px solid var(--soft-sky);
-            box-shadow: 0 10px 25px rgba(14, 165, 233, 0.08); /* 부드러운 푸른색 광채 */
-        }
-        .menu-item.main-feature .icon { 
-            background: white; 
-            box-shadow: 0 4px 10px rgba(14, 165, 233, 0.1);
-            margin-bottom: 16px;
-            font-size: 26px;
+            flex: 1; 
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.4) 100%); 
         }
         .menu-item.main-feature .label { color: var(--point-sky); font-size: 17px; }
-        .menu-item.main-feature .desc { color: var(--sub-text); font-size: 11px; line-height: 1.5; }
 
         /* 📰 뉴스 섹션 */
-        .section-title { font-size: 17px; font-weight: 800; margin: 35px 0 15px 5px; color: var(--text-black); }
-        .news-bundle { background: white; border-radius: 24px; padding: 10px 22px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
-        .news-item { display: block; text-decoration: none; color: inherit; padding: 20px 0; border-bottom: 1px solid #f1f5f9; }
+        .section-title { font-size: 17px; font-weight: 800; margin: 35px 0 15px 5px; color: #1e293b; }
+        .news-bundle { 
+            background: rgba(255, 255, 255, 0.6); 
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px; 
+            padding: 10px 22px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.02); 
+            border: 1px solid rgba(255,255,255,0.7); 
+        }
+        .news-item { display: block; text-decoration: none; color: inherit; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.5); cursor: pointer; }
         .news-item:last-child { border-bottom: none; }
-        .news-item .news-title { font-size: 14px; font-weight: 600; line-height: 1.4; margin-bottom: 8px; display: block; }
-        .news-item .news-meta { font-size: 11px; color: var(--point-sky); font-weight: 700; opacity: 0.8; }
+        .news-item .news-title { font-size: 14px; font-weight: 600; line-height: 1.5; margin-bottom: 8px; display: block; }
+        .news-item .news-meta { font-size: 11px; color: var(--sub-text); font-weight: 600; }
 
-        /* 스켈레톤 */
-        .skeleton { background: #f1f5f9; border-radius: 8px; position: relative; overflow: hidden; }
+        .skeleton { background: rgba(255,255,255,0.3); border-radius: 8px; position: relative; overflow: hidden; }
         .skeleton::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent); animation: loading 1.5s infinite; }
         @keyframes loading { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
     </style>
 </head>
 <body>
 
+    <div class="bg-deco">
+        <div class="sun-ray"></div>
+        <div class="cloud-item c1"></div>
+        <div class="cloud-item c2"></div>
+        <div class="cloud-item c3"></div>
+    </div>
+
+    <div id="newsOverlay">
+        <div class="spinner"></div>
+        <div class="loading-text">뉴스페이지로 이동 중입니다...</div>
+    </div>
+
     <div id="landingPage">
         <div class="landing-logo">💎</div>
-        <h1 style="margin-bottom:12px;">복지멤버십 가이드</h1>
-        <p style="color:var(--sub-text); margin-bottom:40px; line-height:1.6;">당신을 위한 스마트한 복지 여정,<br>지금 시작해 보세요.</p>
+        <h1 style="font-size:28px; font-weight:800; margin-bottom:12px;">복지멤버십 가이드</h1>
+        <p style="color:var(--sub-text); margin-bottom:40px; line-height:1.6; font-size:15px;">당신을 위한 스마트한 복지 여정,<br>지금 시작해 보세요.</p>
         <button id="startBtn" class="start-btn">시작하기</button>
     </div>
 
@@ -115,7 +200,7 @@
         <header>
             <div class="live-badge">Smart Welfare Guide</div>
             <h1>복지멤버십 가이드</h1>
-            <p class="sub-title">복잡한 정보를 한눈에, 우아하게 확인하세요.</p>
+            <p class="sub-title">당신을 위한 복지 혜택, 이제 놓치지 말고 확인하세요.</p>
         </header>
 
         <nav class="menu-container">
@@ -129,7 +214,6 @@
                     <div><span class="label">봉사 모집</span><span class="desc">주변의 따뜻한 나눔을<br>연결해 드립니다</span></div>
                 </a>
             </div>
-
             <a href="intro.html" class="menu-item">
                 <span class="icon">📄</span>
                 <div><span class="label">복지멤버십 소개</span><span class="desc">제도와 혜택을 상세히 안내합니다</span></div>
@@ -154,7 +238,12 @@
     </div>
 
     <script>
-        // 스플래시 제어
+        function openNews(url) {
+            const overlay = document.getElementById('newsOverlay');
+            overlay.style.display = 'flex';
+            setTimeout(() => { window.location.href = url; }, 800);
+        }
+
         document.getElementById('startBtn').addEventListener('click', function() {
             const landing = document.getElementById('landingPage');
             sessionStorage.setItem('welfare_guide_viewed', 'true');
@@ -162,7 +251,6 @@
             setTimeout(() => { landing.remove(); }, 600);
         });
 
-        // 뉴스 API 호출
         async function fetchNews() {
             const newsContainer = document.getElementById('news-list');
             try {
@@ -174,18 +262,21 @@
                     newsContainer.innerHTML = '';
                     data.items.slice(0, 4).forEach(item => {
                         const date = new Date(item.pubDate).toLocaleDateString();
-                        newsContainer.innerHTML += `
-                            <a href="${item.link}" class="news-item">
-                                <span class="news-title">${item.title}</span>
-                                <span class="news-meta">LATEST NEWS · ${date}</span>
-                            </a>`;
+                        const itemLink = item.link;
+                        const itemEl = document.createElement('div');
+                        itemEl.className = 'news-item';
+                        itemEl.innerHTML = `
+                            <span class="news-title">${item.title}</span>
+                            <span class="news-meta">LATEST NEWS · ${date}</span>
+                        `;
+                        itemEl.onclick = () => openNews(itemLink);
+                        newsContainer.appendChild(itemEl);
                     });
                 }
             } catch (e) {
                 newsContainer.innerHTML = '<p style="padding:20px; text-align:center; color:#94a3b8;">뉴스를 불러오지 못했습니다.</p>';
             }
         }
-
         window.onload = fetchNews;
     </script>
 </body>
