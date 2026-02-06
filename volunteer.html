@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>봉사 모집 안내 - 복지멤버십</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquareRound@master/nanumsquareround.min.css">
+    <style>
+        :root { 
+            --main-sky: #7dd3fc; 
+            --point-sky: #0ea5e9; 
+            --bg-gray: #f0f9ff; 
+            --text-black: #1e293b; 
+            --sub-text: #64748b; 
+        }
+        
+        body { font-family: 'NanumSquareRound', sans-serif; background: var(--bg-gray); margin: 0; padding: 0; color: var(--text-black); line-height: 1.6; }
+        
+        /* 📍 헤더 설정 */
+        header { 
+            background: var(--bg-gray); 
+            padding: 25px 20px 15px; 
+            text-align: left; 
+            border-bottom: 1px solid rgba(14, 165, 233, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        h1 { font-size: 24px; font-weight: 800; color: var(--point-sky); margin: 0; }
+        .sub-title { font-size: 14px; color: var(--sub-text); margin-top: 5px; display: block; }
+
+        .container { padding: 20px; }
+
+        /* 공통 카드 스타일 */
+        .card-box { background: white; border-radius: 20px; padding: 5px 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); margin-bottom: 20px; }
+        
+        .intro-card { background: white; padding: 22px; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); margin-bottom: 25px; border: 1px solid rgba(125, 211, 252, 0.2); }
+        .intro-card p { font-size: 15px; color: var(--sub-text); margin: 0; line-height: 1.7; }
+        .highlight { color: var(--point-sky); font-weight: 800; }
+
+        .section-title { font-size: 16px; font-weight: 800; margin: 30px 0 12px 5px; color: #374151; display: flex; align-items: center; }
+        .section-title::before { content: '💙'; margin-right: 8px; font-size: 14px; }
+        
+        /* 실시간 리스트 스타일 */
+        .news-item { display: block; text-decoration: none; color: inherit; padding: 18px 0; border-bottom: 1px solid #f1f5f9; cursor: pointer; }
+        .news-item:last-child { border-bottom: none; }
+        .news-item .news-title { font-size: 14px; font-weight: 700; color: var(--text-black); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .news-item .news-date { font-size: 11px; color: var(--sub-text); margin-top: 6px; display: block; }
+
+        /* 🌀 로딩 오버레이 (메인 페이지와 동일) */
+        .loading-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.95); display: flex; justify-content: center; align-items: center; z-index: 20000; flex-direction: column; }
+        .hidden { display: none !important; }
+        .spinner { width: 50px; height: 50px; border: 5px solid #f3f3f3; border-top: 5px solid var(--point-sky); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .loading-msg { font-weight: 800; color: var(--point-sky); font-size: 16px; text-align: center; white-space: pre-wrap; }
+
+        /* 스켈레톤 */
+        .skeleton { background: linear-gradient(110deg, #e0f2fe 8%, #f0f9ff 18%, #e0f2fe 33%); border-radius: 5px; background-size: 200% 100%; animation: 1.5s shine linear infinite; }
+        @keyframes shine { to { background-position-x: -200%; } }
+        .skeleton-text { height: 16px; width: 100%; margin-bottom: 8px; }
+
+        .info-item { padding: 18px 0; border-bottom: 1px solid #f1f5f9; display: flex; align-items: flex-start; }
+        .info-item:last-child { border-bottom: none; }
+        .info-item .step { background: var(--main-sky); color: white; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; margin-right: 12px; margin-top: 2px; flex-shrink: 0; }
+        .info-item .content-title { font-size: 15px; font-weight: 800; color: var(--text-black); display: block; margin-bottom: 4px; }
+        .info-item .content-desc { font-size: 13px; color: var(--sub-text); word-break: keep-all; }
+
+        .action-area { margin-top: 40px; text-align: center; padding-bottom: 40px; }
+        .link-btn { display: inline-flex; align-items: center; justify-content: center; background: var(--point-sky); color: white; text-decoration: none; padding: 18px 0; border-radius: 50px; font-size: 16px; font-weight: 800; box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3); transition: transform 0.2s; width: 100%; max-width: 320px; }
+        .link-btn:active { transform: scale(0.95); background: #0369a1; }
+        .footer-notice { font-size: 11px; color: #94a3b8; margin-top: 15px; display: block; line-height: 1.5; }
+    </style>
+</head>
+<body>
+
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <p id="loadingText" class="loading-msg">공고 내용을 불러오고 있습니다...</p>
+    </div>
+
+    <header>
+        <h1>🤝 봉사 모집 안내</h1>
+        <span class="sub-title">주변의 따뜻한 나눔의 손길을 찾아보세요.</span>
+    </header>
+
+    <div class="container">
+        <div class="intro-card">
+            <p>우리 주변의 이웃에게 따뜻한 손길을 전하고 싶으신가요? <br><span class="highlight">전국의 다양한 봉사활동</span>을 한눈에 확인하고 참여할 수 있습니다.</p>
+        </div>
+
+        <div class="section-title">참여 방법 안내</div>
+        <div class="card-box">
+            <div class="info-item">
+                <span class="step">1</span>
+                <div><span class="content-title">맞춤 봉사 검색</span><span class="content-desc">지역 및 관심 분야를 선택하여 봉사 정보를 검색합니다.</span></div>
+            </div>
+            <div class="info-item">
+                <span class="step">2</span>
+                <div><span class="content-title">봉사 신청 및 확인</span><span class="content-desc">신청 후 관리 기관의 승인을 기다립니다.</span></div>
+            </div>
+        </div>
+
+        <div class="section-title">실시간 봉사활동 공고</div>
+        <div class="card-box" id="volunteer-list">
+            <div class="news-item"><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text" style="width:30%"></div></div>
+            <div class="news-item"><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text" style="width:30%"></div></div>
+        </div>
+
+        <div class="action-area">
+            <a href="https://www.1365.go.kr" target="_blank" class="link-btn">복지 서비스 찾아보기</a>
+            <span class="footer-notice">
+                * 자원봉사 포털 1365 공식 홈페이지로 연결됩니다. <br>
+                * 위 리스트는 최신 모집 정보를 실시간으로 제공합니다.
+            </span>
+        </div>
+    </div>
+
+    <script>
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const loadingText = document.getElementById('loadingText');
+
+        function showLoading(msg) {
+            loadingText.innerText = msg;
+            loadingOverlay.classList.remove('hidden');
+        }
+
+        async function fetchVolunteerInfo() {
+            const listContainer = document.getElementById('volunteer-list');
+            const keywords = ['봉사활동 모집', '자원봉사 모집', '봉사자 모집'];
+            const searchQuery = encodeURIComponent(`(${keywords.join(' OR ')})`);
+            const rssUrl = `https://news.google.com/rss/search?q=${searchQuery}+when:7d&hl=ko&gl=KR&ceid=KR:ko`;
+            const apiTarget = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+
+            try {
+                const response = await fetch(apiTarget);
+                const data = await response.json();
+                listContainer.innerHTML = '';
+
+                if (data.items && data.items.length > 0) {
+                    const sortedItems = data.items.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+
+                    // 🚀 10개까지 노출하도록 수정
+                    sortedItems.slice(0, 10).forEach(item => {
+                        const div = document.createElement('div');
+                        div.className = 'news-item';
+                        const pubDate = new Date(item.pubDate);
+                        const dateStr = pubDate.getFullYear() + '-' + String(pubDate.getMonth() + 1).padStart(2, '0') + '-' + String(pubDate.getDate()).padStart(2, '0');
+                        
+                        div.innerHTML = `
+                            <span class="news-title">${item.title}</span>
+                            <span class="news-date">${dateStr} | 실시간 모집 공고</span>
+                        `;
+                        
+                        // 🌀 클릭 시 로딩바 로직 추가
+                        div.addEventListener('click', () => {
+                            showLoading("상세 내용을 확인하고 있습니다.\n잠시만 기다려 주세요...");
+                            setTimeout(() => { window.location.href = item.link; }, 300);
+                        });
+                        listContainer.appendChild(div);
+                    });
+                } else {
+                    listContainer.innerHTML = '<div class="news-item"><span class="news-title">현재 모집 중인 공고가 없습니다.</span></div>';
+                }
+            } catch (e) {
+                listContainer.innerHTML = '<div class="news-item"><span class="news-title">공고를 불러올 수 없습니다.</span></div>';
+            }
+        }
+
+        window.onload = fetchVolunteerInfo;
+
+        // 뒤로가기 시 로딩 오버레이 숨기기
+        window.onpageshow = (event) => {
+            if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+                loadingOverlay.classList.add('hidden');
+            }
+        };
+    </script>
+</body>
+</html>
