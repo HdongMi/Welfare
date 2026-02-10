@@ -17,11 +17,6 @@
             background-attachment: fixed;
         }
 
-        /* 배경 데코 */
-        .bg-deco { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
-        .cloud-item { position: absolute; background: white; filter: blur(50px); border-radius: 50%; opacity: 0.6; }
-        .c1 { width: 300px; height: 300px; top: -50px; left: -100px; }
-
         header { padding: 10px 0 20px; }
         h1 { font-size: 26px; font-weight: 800; color: var(--point-sky); margin: 0; }
 
@@ -39,7 +34,7 @@
         .section-title { font-size: 17px; font-weight: 800; margin: 0 0 18px 5px; color: #334155; }
         .result-list { display: flex; flex-direction: column; gap: 16px; }
         
-        /* 📋 카드 디자인: 여백 및 줄간격 대폭 수정 */
+        /* 📋 카드 디자인: 여백 및 간격 최적화 */
         .welfare-card { 
             background: white; padding: 25px; border-radius: 24px; 
             text-decoration: none; color: inherit; display: block; 
@@ -50,76 +45,55 @@
         
         .dept { font-size: 12px; color: var(--point-sky); font-weight: 800; margin-bottom: 12px; display: block; }
         
-        /* 제목: 줄간격 1.6으로 넓힘 */
+        /* 제목 가독성 강화 */
         .title { font-size: 19px; font-weight: 800; color: #0f172a; line-height: 1.6; word-break: keep-all; display: block; }
         
-        /* 📅 신청기간: 마진을 크게 줘서 제목과 분리 */
+        /* 📅 신청기간: 겹침 방지를 위해 마진 확보 */
         .date-info { 
             display: inline-flex; align-items: center; 
             margin-top: 22px; 
             font-size: 13px; color: #dc2626; font-weight: 700;
             background: #fef2f2; padding: 8px 16px; border-radius: 10px;
+            border: 1px solid #fee2e2;
         }
 
         .status-msg { text-align: center; padding: 60px 20px; color: var(--sub-text); }
     </style>
 </head>
 <body>
-    <div class="bg-deco"><div class="cloud-item c1"></div></div>
     <header><h1>🔍 정책 서비스 찾기</h1></header>
     <div class="search-container">
         <input type="text" id="searchInput" placeholder="정책명이나 키워드로 검색해보세요" onkeyup="filterResults()">
     </div>
     <div id="content-area">
-        <div id="list-title" class="section-title">실시간 수집된 정책</div>
+        <div id="list-title" class="section-title">최신 수집 정책</div>
         <div id="resultArea" class="result-list">
-            <div class="status-msg">데이터를 동기화 중입니다...</div>
+            <div class="status-msg">정책 데이터를 동기화하는 중입니다...</div>
         </div>
     </div>
 
     <script>
         let allPolicies = []; 
 
-        // 💡 API 로드 함수
-        async function loadRealTimeData() {
-            const serviceKey = "e8e40ea23b405a5abba75382a331e61f9052570e9e95a7ca6cf5db14818ba22b";
-            const url = `https://apis.data.go.kr/B554287/NationalWelfareInformationsV001/getNationalWelfareInformationsV001?serviceKey=${encodeURIComponent(decodeURIComponent(serviceKey))}&callTp=L&pageNo=1&numOfRows=100&dataType=JSON`;
-
+        async function loadData() {
+            const resultArea = document.getElementById('resultArea');
+            
             try {
-                const response = await fetch(url);
-                const data = await response.json();
-                
-                // 데이터 경로 탐색 (API 응답 구조 대응)
-                let list = data.servList || (data.response && data.response.body && data.response.body.servList);
-                
-                if (list && list.length > 0) {
-                    allPolicies = list;
-                    displayData(allPolicies);
-                } else {
-                    throw new Error('Data empty');
-                }
+                // 💡 1. 먼저 로컬 data.json 파일을 불러오기 시도
+                const response = await fetch('data.json');
+                if (!response.ok) throw new Error('Local file not found');
+                allPolicies = await response.json();
+                displayData(allPolicies);
             } catch (e) {
-                console.log("API 호출 실패 - 내장 데이터로 전환합니다.");
-                loadBackupData(); // 👈 실패 시 즉시 내장 데이터 로드
+                console.log("JSON 파일을 찾을 수 없어 내장 데이터를 사용합니다.");
+                // 💡 2. JSON 파일이 없을 경우를 대비한 하드코딩 데이터
+                allPolicies = [
+                    { "servNm": "기초연금 지급 안내", "jurMnstNm": "보건복지부", "bizPrdEn": "상시신청", "servId": "W00000000001" },
+                    { "servNm": "청년 월세 특별지원 (2차)", "jurMnstNm": "국토교통부", "bizPrdEn": "2024.02.26 ~ 2025.02.25", "servId": "W00000168341" },
+                    { "servNm": "부모급여 지원", "jurMnstNm": "보건복지부", "bizPrdEn": "상시신청", "servId": "W00000168233" }
+                ];
+                displayData(allPolicies);
             }
-        }
-
-        // 💡 [중요] API 실패를 대비한 대량의 백업 데이터 (2026년 기준 실데이터 형태)
-        function loadBackupData() {
-            allPolicies = [
-                { servNm: "기초연금 지급", jurMnstNm: "보건복지부", bizPrdEn: "상시신청", servId: "W00000000001" },
-                { servNm: "청년 월세 특별지원 (2차)", jurMnstNm: "국토교통부", bizPrdEn: "2024.02 ~ 2025.02", servId: "W00000168341" },
-                { servNm: "부모급여 지원", jurMnstNm: "보건복지부", bizPrdEn: "상시신청", servId: "W00000168233" },
-                { servNm: "에너지바우처 지원", jurMnstNm: "산업통상자원부", bizPrdEn: "2024.12.31까지", servId: "W00000000401" },
-                { servNm: "국민내일배움카드", jurMnstNm: "고용노동부", bizPrdEn: "상시신청", servId: "W00000000701" },
-                { servNm: "디딤돌 대출 (내집마련 지원)", jurMnstNm: "국토교통부", bizPrdEn: "상시신청", servId: "W00000000801" },
-                { servNm: "아동수당 지급", jurMnstNm: "보건복지부", bizPrdEn: "상시신청", servId: "W00000000002" },
-                { servNm: "청년내일채움공제", jurMnstNm: "고용노동부", bizPrdEn: "예산 소진 시까지", servId: "W00000000501" },
-                { servNm: "장애인 연금 지원", jurMnstNm: "보건복지부", bizPrdEn: "상시신청", servId: "W00000000111" },
-                { servNm: "초등 돌봄교실 운영", jurMnstNm: "교육부", bizPrdEn: "학기별 신청", servId: "W00000000122" }
-            ];
-            displayData(allPolicies);
-            document.getElementById('list-title').innerHTML += " <span style='font-size:11px; font-weight:normal; color:#64748b;'>(안전 모드 활성화)</span>";
         }
 
         function displayData(data) {
@@ -133,9 +107,9 @@
                 card.target = "_blank";
                 
                 card.innerHTML = `
-                    <span class="dept">${item.jurMnstNm || '중앙부처'}</span>
+                    <span class="dept">${item.jurMnstNm}</span>
                     <span class="title">${item.servNm}</span>
-                    <div class="date-info">📅 신청기간: ${item.bizPrdEn || "상세공고 참조"}</div>
+                    <div class="date-info">📅 신청기간: ${item.bizPrdEn}</div>
                 `;
                 resultArea.appendChild(card);
             });
@@ -144,13 +118,12 @@
         function filterResults() {
             const query = document.getElementById('searchInput').value.toLowerCase().trim();
             const filtered = allPolicies.filter(p => 
-                p.servNm.toLowerCase().includes(query) || 
-                (p.jurMnstNm && p.jurMnstNm.toLowerCase().includes(query))
+                p.servNm.toLowerCase().includes(query) || p.jurMnstNm.toLowerCase().includes(query)
             );
             displayData(filtered);
         }
 
-        window.addEventListener('DOMContentLoaded', loadRealTimeData);
+        window.addEventListener('DOMContentLoaded', loadData);
     </script>
 </body>
 </html>
