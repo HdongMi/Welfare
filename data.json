@@ -1,0 +1,9 @@
+[
+    { "servNm": "기초연금 지급 안내", "jurMnstNm": "보건복지부", "bizPrdEn": "상시신청", "servId": "W00000000001" },
+    { "servNm": "청년 월세 특별지원 (2차)", "jurMnstNm": "국토교통부", "bizPrdEn": "2024.02.26 ~ 2025.02.25", "servId": "W00000168341" },
+    { "servNm": "부모급여(영아수당) 지원", "jurMnstNm": "보건복지부", "bizPrdEn": "상시신청", "servId: "W00000168233" },
+    { "servNm": "에너지바우처 지원사업", "jurMnstNm": "산업통상자원부", "bizPrdEn": "2024.05.29 ~ 2024.12.31", "servId": "W00000000401" },
+    { "servNm": "국민내일배움카드", "jurMnstNm": "고용노동부", "bizPrdEn": "상시신청", "servId": "W00000000701" },
+    { "servNm": "청년내일채움공제", "jurMnstNm": "고용노동부", "bizPrdEn": "예산 소진 시까지", "servId": "W00000000501" },
+    { "servNm": "디딤돌 대출 (내집마련 지원)", "jurMnstNm": "국토교통부", "bizPrdEn": "상시신청", "servId": "W00000000801" }
+]
