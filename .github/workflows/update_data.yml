@@ -23,7 +23,7 @@ jobs:
       - name: 크롤러 실행
         run: |
           node crawler.mjs            # 1. 기존 정책 수집
-          node welfare_collector.js   # 2. 새 복지 서비스 수집 (추가됨!)
+          node welfare_collector.mjs   # 👈 여기를 .mjs로 고치세요!
 
       - name: 변경사항 저장 및 푸시
         run: |
