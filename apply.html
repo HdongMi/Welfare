@@ -16,11 +16,8 @@
             background: linear-gradient(180deg, #f0f9ff 0%, #bae6fd 50%, #e0f2fe 100%);
             background-attachment: fixed;
         }
-
         header { padding: 10px 0 20px; text-align: center; }
         h1 { font-size: 26px; font-weight: 800; color: var(--point-sky); margin: 0; }
-        .update-tag { font-size: 12px; color: #64748b; margin-top: 5px; display: block; }
-
         .search-container { 
             position: sticky; top: 15px; z-index: 100; 
             background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
@@ -30,37 +27,25 @@
         input { 
             width: 100%; border: 2px solid #e0f2fe; padding: 15px 20px; 
             border-radius: 15px; font-size: 16px; outline: none; box-sizing: border-box;
-            transition: border-color 0.3s;
         }
-        input:focus { border-color: var(--point-sky); }
-        
         .section-title { font-size: 17px; font-weight: 800; margin: 0 0 18px 5px; color: #334155; }
         .result-list { display: flex; flex-direction: column; gap: 16px; }
-        
         .welfare-card { 
             background: white; padding: 25px; border-radius: 24px; 
             text-decoration: none; color: inherit; display: block; 
-            transition: all 0.3s ease; 
-            border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            transition: all 0.3s ease; border: 1px solid rgba(0,0,0,0.05);
         }
-        .welfare-card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); }
-        
         .dept { font-size: 12px; color: var(--point-sky); font-weight: 800; margin-bottom: 12px; display: block; }
         .title { font-size: 19px; font-weight: 800; color: #0f172a; line-height: 1.6; word-break: keep-all; display: block; }
-        
         .date-info { 
-            display: inline-flex; align-items: center; 
-            margin-top: 22px; 
+            display: inline-flex; align-items: center; margin-top: 22px; 
             font-size: 13px; color: #dc2626; font-weight: 700;
             background: #fef2f2; padding: 8px 16px; border-radius: 10px;
-            border: 1px solid #fee2e2;
         }
-
         .status-msg { text-align: center; padding: 60px 20px; color: var(--sub-text); line-height: 1.6; }
         .loading-spinner { 
             border: 4px solid #f3f3f3; border-top: 4px solid var(--point-sky);
-            border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite;
-            margin: 20px auto;
+            border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 20px auto;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
@@ -71,45 +56,54 @@
     </header>
 
     <div class="search-container">
-        <input type="text" id="searchInput" placeholder="나열된 정책 중에서 검색 (예: 청년, 수당)" onkeyup="filterResults()">
+        <input type="text" id="searchInput" placeholder="나열된 정책 중에서 검색" onkeyup="filterResults()">
     </div>
 
     <div id="content-area">
         <div id="list-title" class="section-title">최신 정책 목록</div>
         <div id="resultArea" class="result-list">
             <div class="loading-spinner"></div>
-            <div class="status-msg">데이터를 불러오는 중입니다...</div>
+            <div class="status-msg">데이터를 동기화 중입니다...<br>처음 발급 시 최대 1시간이 소요될 수 있습니다.</div>
         </div>
     </div>
 
     <script>
+        // 발급받으신 키를 여기에 정확히 입력하세요 (Decoding 키 권장)
         const API_KEY = 'e8e40ea23b405a5abba75382a331e61f9052570e9e95a7ca6cf5db14818ba22b'; 
-        let allPolicies = []; // 가져온 데이터를 저장할 배열
+        let allPolicies = [];
 
-        // 페이지 로드 시 즉시 데이터 호출
         window.addEventListener('DOMContentLoaded', fetchInitialData);
 
         async function fetchInitialData() {
             const resultArea = document.getElementById('resultArea');
+            // 서비스 키가 인코딩되어 있을 경우를 대비해 처리
+            const decodedKey = decodeURIComponent(API_KEY);
             
             try {
-                // 초기 로딩 시 최근 정책 50개를 가져옴
-                const url = `https://apis.data.go.kr/1352000/getWelfareServiceList/getWelfareServiceList?serviceKey=${API_KEY}&callTp=L&pageNo=1&numOfRows=50`;
-                const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
+                // 다른 프록시 서버(cors-anywhere 대용) 시도
+                const targetUrl = `https://apis.data.go.kr/1352000/getWelfareServiceList/getWelfareServiceList?serviceKey=${encodeURIComponent(decodedKey)}&callTp=L&pageNo=1&numOfRows=50`;
+                const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
                 
                 const response = await fetch(proxyUrl);
-                const data = await response.json();
+                if (!response.ok) throw new Error('네트워크 응답 없음');
                 
+                const json = await response.json();
                 const parser = new DOMParser();
-                const xmlDoc = parser.parseFromString(data.contents, "text/xml");
-                const items = xmlDoc.getElementsByTagName("servList");
-
-                if (items.length === 0) {
-                    resultArea.innerHTML = '<div class="status-msg">불러올 정책 데이터가 없습니다.</div>';
+                const xmlDoc = parser.parseFromString(json.contents, "text/xml");
+                
+                // 에러 메시지 확인 (키가 아직 활성화 안 된 경우 확인용)
+                const errMsg = xmlDoc.getElementsByTagName("returnAuthMsg")[0]?.textContent;
+                if (errMsg) {
+                    resultArea.innerHTML = `<div class="status-msg">💡 API 키가 아직 시스템에 등록되지 않았습니다.<br><strong>승인 후 약 1~2시간 뒤</strong>에 다시 시도해주세요.<br>(에러내용: ${errMsg})</div>`;
                     return;
                 }
 
-                // 데이터를 배열에 저장
+                const items = xmlDoc.getElementsByTagName("servList");
+                if (items.length === 0) {
+                    resultArea.innerHTML = '<div class="status-msg">표시할 데이터가 없습니다.</div>';
+                    return;
+                }
+
                 allPolicies = Array.from(items).map(item => ({
                     servNm: item.getElementsByTagName("servNm")[0]?.textContent || "",
                     jurMnstNm: item.getElementsByTagName("jurMnstNm")[0]?.textContent || "",
@@ -120,25 +114,18 @@
                 displayData(allPolicies);
             } catch (e) {
                 console.error(e);
-                resultArea.innerHTML = '<div class="status-msg">데이터 로드 실패. API 키 활성화 상태를 확인해주세요.</div>';
+                resultArea.innerHTML = '<div class="status-msg">데이터 로드 실패.<br>잠시 후 다시 접속하시거나 키 상태를 확인해주세요.</div>';
             }
         }
 
         function displayData(data) {
             const resultArea = document.getElementById('resultArea');
             resultArea.innerHTML = '';
-            
-            if(data.length === 0) {
-                resultArea.innerHTML = '<div class="status-msg">검색 결과가 없습니다.</div>';
-                return;
-            }
-
             data.forEach(item => {
                 const card = document.createElement('a');
                 card.className = 'welfare-card';
                 card.href = `https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52005M.do?servId=${item.servId}`;
                 card.target = "_blank";
-                
                 card.innerHTML = `
                     <span class="dept">${item.jurMnstNm}</span>
                     <span class="title">${item.servNm}</span>
@@ -148,7 +135,6 @@
             });
         }
 
-        // 실시간 필터링 기능
         function filterResults() {
             const query = document.getElementById('searchInput').value.toLowerCase().trim();
             const filtered = allPolicies.filter(p => 
