@@ -43,6 +43,12 @@
             background: #fef2f2; padding: 8px 16px; border-radius: 10px;
         }
         .status-msg { text-align: center; padding: 60px 20px; color: var(--sub-text); line-height: 1.6; }
+        .error-log { 
+            background: #fff1f2; color: #e11d48; padding: 15px; 
+            border-radius: 12px; font-size: 12px; margin-top: 20px; 
+            display: none; white-space: pre-wrap; word-break: break-all;
+            border: 1px solid #fda4af;
+        }
         .loading-spinner { 
             border: 4px solid #f3f3f3; border-top: 4px solid var(--point-sky);
             border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 20px auto;
@@ -51,70 +57,83 @@
     </style>
 </head>
 <body>
-    <header>
-        <h1>🔍 정책 서비스 찾기</h1>
-    </header>
+    <header><h1>🔍 정책 서비스 찾기</h1></header>
 
     <div class="search-container">
         <input type="text" id="searchInput" placeholder="나열된 정책 중에서 검색" onkeyup="filterResults()">
     </div>
 
     <div id="content-area">
-        <div id="list-title" class="section-title">최신 정책 목록</div>
+        <div id="list-title" class="section-title">정책 목록 현황</div>
         <div id="resultArea" class="result-list">
-            <div class="loading-spinner"></div>
-            <div class="status-msg">데이터를 동기화 중입니다...<br>처음 발급 시 최대 1시간이 소요될 수 있습니다.</div>
+            <div class="status-msg">
+                <div class="loading-spinner"></div>
+                데이터를 불러오고 있습니다...
+            </div>
         </div>
+        <div id="errorLog" class="error-log"></div>
     </div>
 
     <script>
-        // 발급받으신 키를 여기에 정확히 입력하세요 (Decoding 키 권장)
-        const API_KEY = 'e8e40ea23b405a5abba75382a331e61f9052570e9e95a7ca6cf5db14818ba22b'; 
+        // 사용자의 API KEY
+        const RAW_KEY = 'e8e40ea23b405a5abba75382a331e61f9052570e9e95a7ca6cf5db14818ba22b'; 
         let allPolicies = [];
 
-        window.addEventListener('DOMContentLoaded', fetchInitialData);
+        window.addEventListener('DOMContentLoaded', fetchData);
 
-        async function fetchInitialData() {
+        async function fetchData() {
             const resultArea = document.getElementById('resultArea');
-            // 서비스 키가 인코딩되어 있을 경우를 대비해 처리
-            const decodedKey = decodeURIComponent(API_KEY);
+            const errorLog = document.getElementById('errorLog');
             
             try {
-                // 다른 프록시 서버(cors-anywhere 대용) 시도
-                const targetUrl = `https://apis.data.go.kr/1352000/getWelfareServiceList/getWelfareServiceList?serviceKey=${encodeURIComponent(decodedKey)}&callTp=L&pageNo=1&numOfRows=50`;
-                const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
+                // 1. 공공데이터포털 URL (가이드에 따른 필수 파라미터 조합)
+                // 키가 이미 인코딩되어 있을 수 있으므로 decode 후 다시 encode 하여 안전하게 전달
+                const serviceKey = encodeURIComponent(decodeURIComponent(RAW_KEY));
+                const url = `https://apis.data.go.kr/1352000/getWelfareServiceList/getWelfareServiceList?serviceKey=${serviceKey}&callTp=L&pageNo=1&numOfRows=50`;
+                
+                // 2. Proxy 서비스 이용 (AllOrigins)
+                const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
                 
                 const response = await fetch(proxyUrl);
-                if (!response.ok) throw new Error('네트워크 응답 없음');
+                if (!response.ok) throw new Error(`네트워크 응답 오류 (Status: ${response.status})`);
                 
                 const json = await response.json();
-                const parser = new DOMParser();
-                const xmlDoc = parser.parseFromString(json.contents, "text/xml");
+                const xmlText = json.contents;
                 
-                // 에러 메시지 확인 (키가 아직 활성화 안 된 경우 확인용)
-                const errMsg = xmlDoc.getElementsByTagName("returnAuthMsg")[0]?.textContent;
-                if (errMsg) {
-                    resultArea.innerHTML = `<div class="status-msg">💡 API 키가 아직 시스템에 등록되지 않았습니다.<br><strong>승인 후 약 1~2시간 뒤</strong>에 다시 시도해주세요.<br>(에러내용: ${errMsg})</div>`;
-                    return;
+                if (!xmlText) throw new Error("API 응답 내용이 비어 있습니다. (Proxy 서버 문제일 수 있음)");
+
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(xmlText, "text/xml");
+
+                // 3. API 자체 에러 체크 (SERVICE_KEY_IS_NOT_REGISTERED_ERROR 등)
+                const cmmMsgHeader = xmlDoc.getElementsByTagName("cmmMsgHeader")[0];
+                if (cmmMsgHeader) {
+                    const returnMsg = cmmMsgHeader.getElementsByTagName("returnMsg")[0]?.textContent;
+                    throw new Error(`공공데이터 서버 메시지: ${returnMsg}`);
                 }
 
                 const items = xmlDoc.getElementsByTagName("servList");
+                
                 if (items.length === 0) {
-                    resultArea.innerHTML = '<div class="status-msg">표시할 데이터가 없습니다.</div>';
-                    return;
+                    // 검색 결과가 없는 것이 아니라 데이터 구조 자체가 다를 수 있음
+                    console.log("XML 구조:", xmlText);
+                    throw new Error("데이터를 찾을 수 없습니다. (XML 파싱 실패 또는 데이터 부재)");
                 }
 
                 allPolicies = Array.from(items).map(item => ({
-                    servNm: item.getElementsByTagName("servNm")[0]?.textContent || "",
-                    jurMnstNm: item.getElementsByTagName("jurMnstNm")[0]?.textContent || "",
+                    servNm: item.getElementsByTagName("servNm")[0]?.textContent || "제목 없음",
+                    jurMnstNm: item.getElementsByTagName("jurMnstNm")[0]?.textContent || "기관 미정",
                     servId: item.getElementsByTagName("servId")[0]?.textContent || "",
                     bizPrdEn: item.getElementsByTagName("bizPrdEn")[0]?.textContent || "상시신청"
                 }));
 
                 displayData(allPolicies);
-            } catch (e) {
-                console.error(e);
-                resultArea.innerHTML = '<div class="status-msg">데이터 로드 실패.<br>잠시 후 다시 접속하시거나 키 상태를 확인해주세요.</div>';
+
+            } catch (err) {
+                console.error(err);
+                resultArea.innerHTML = `<div class="status-msg">❌ 데이터 로드 실패<br><small>하단의 상세 에러 코드를 확인해주세요.</small></div>`;
+                errorLog.style.display = 'block';
+                errorLog.innerText = `[상세 에러 내용]\n${err.message}`;
             }
         }
 
