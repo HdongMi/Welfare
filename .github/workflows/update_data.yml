@@ -3,7 +3,7 @@ name: Update Welfare Data
 on:
   schedule:
     - cron: '0 0 * * *' # 매일 자정(0시)에 자동으로 실행
-  workflow_dispatch: # 내가 원할 때 수동으로 실행 가능
+  workflow_dispatch: # 수동 실행 버튼 생성
 
 jobs:
   build:
@@ -21,12 +21,17 @@ jobs:
         run: npm install node-fetch xml2js
 
       - name: 크롤러 실행
-        run: node crawler.mjs
+        run: |
+          node crawler.mjs            # 1. 기존 정책 수집
+          node welfare_collector.js   # 2. 새 복지 서비스 수집 (추가됨!)
 
       - name: 변경사항 저장 및 푸시
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
-          git add policies.json
-          git commit -m "Auto update: policies.json" || exit 0
+          
+          # 3. 두 파일 모두 깃허브 바구니에 담기
+          git add policies.json welfare_data.json
+          
+          git commit -m "Auto update: policies.json & welfare_data.json" || exit 0
           git push
