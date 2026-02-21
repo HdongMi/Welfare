@@ -1,58 +1,49 @@
-// 파일명: welfare_collector.js (node welfare_collector.js 로 실행)
-import fs from "fs";
-import path from "path";
 import fetch from "node-fetch";
+import fs from "fs";
 import { parseStringPromise } from "xml2js";
 
-async function run() {
-    // 사용자님이 주신 실제 키와 API 주소
-    const SERVICE_KEY = "e8e40ea23b405a5abba75382a331e61f9052570e9e95a7ca6cf5db14818ba22b";
-    
-    // ⚠️ 파일명을 다르게 설정하여 기존 policies.json을 보호합니다.
-    const filePath = path.join(process.cwd(), "welfare_data.json");
-    
-    const API_URL = `https://apis.data.go.kr/1421000/mssBizService_v2/getbizList_v2?serviceKey=${SERVICE_KEY}&pageNo=1&numOfRows=100&returnType=json&pblancServiceStartDate=20260101`;
+// 1. 설정 (발급받으신 서비스키를 여기에 꼭 넣으세요!)
+const SERVICE_KEY = "e8e40ea23b405a5abba75382a331e61f9052570e9e95a7ca6cf5db14818ba22b"; 
+const API_URL = "http://apis.data.go.kr/B554287/LocalWelfareServiceInquiryService/getLclWlfareLcstInq";
+
+async function collectWelfareData() {
+    console.log("📡 [지자체 복지 서비스] 데이터 수집 시작...");
 
     try {
-        console.log(`📡 [전용 수집기] 복지 서비스 데이터 스캔 시작...`);
-        const apiRes = await fetch(API_URL);
-        const apiText = await apiRes.text();
+        // 2. API 호출 (지자체 데이터는 보통 양이 많으므로 50개 정도 가져옵니다)
+        const fullUrl = `${API_URL}?serviceKey=${SERVICE_KEY}&numOfRows=50&pageNo=1`;
+        
+        const response = await fetch(fullUrl);
+        const xmlData = await response.text();
 
-        let itemsArray = [];
-        if (apiText.includes("<item>")) {
-            const xmlData = await parseStringPromise(apiText);
-            const items = xmlData?.response?.body?.[0]?.items?.[0]?.item;
-            itemsArray = Array.isArray(items) ? items : (items ? [items] : []);
-        } else {
-            const jsonData = JSON.parse(apiText);
-            itemsArray = jsonData.response?.body?.items || [];
+        // 3. XML -> JSON 변환
+        const result = await parseStringPromise(xmlData);
+        
+        // API 구조에 따라 items 위치가 다를 수 있으니 안전하게 접근합니다.
+        const items = result.response.body[0].items[0].item;
+
+        if (!items) {
+            console.log("⚠️ 현재 수집 가능한 지자체 복지 데이터가 없습니다.");
+            return;
         }
 
-        const newPolicies = itemsArray.map(item => {
-            const getV = (v) => (Array.isArray(v) ? v[0] : (typeof v === 'object' ? v._ : v)) || "";
-            const title = (getV(item.pblancNm) || getV(item.title)).trim();
-            const rawStart = String(getV(item.pblancStartDate) || "");
-            const rawEnd = String(getV(item.pblancEndDate) || "");
-            
-            let deadline = "상세참조";
-            if (rawStart.length >= 8 && rawEnd.length >= 8) {
-                deadline = `${rawStart.substring(0,4)}-${rawStart.substring(4,6)}-${rawStart.substring(6,8)} ~ ${rawEnd.substring(0,4)}-${rawEnd.substring(4,6)}-${rawEnd.substring(6,8)}`;
-            }
+        // 4. 데이터 가공 (지자체 API 항목 명칭 적용)
+        const processedData = items.map(item => ({
+            // servNm: 서비스명, jurMnstNm: 소관지자체이름, servDgst: 서비스요약
+            title: item.servNm ? item.servNm[0] : "복지 서비스",
+            source: item.jurMnstNm ? item.jurMnstNm[0] : "지자체",
+            // 지자체 데이터는 '신청기간' 항목이 따로 없는 경우가 많아 요약 내용으로 대체하거나 고정문구를 넣습니다.
+            deadline: "상세내용 확인 요망", 
+            link: item.servId ? `https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveWlfareInfoDetlView.do?servId=${item.servId[0]}` : "https://www.bokjiro.go.kr"
+        }));
 
-            return {
-                title,
-                source: getV(item.areaNm) || "중소벤처기업부",
-                deadline: deadline,
-                link: `https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310`
-            };
-        });
-
-        // 전용 파일로 저장
-        fs.writeFileSync(filePath, JSON.stringify(newPolicies, null, 2), "utf8");
-        console.log(`✨ 성공! welfare_data.json 파일이 생성되었습니다.`);
+        // 5. 파일 저장
+        fs.writeFileSync("welfare_data.json", JSON.stringify(processedData, null, 2));
+        console.log(`✨ 성공! 지자체 복지 서비스 ${processedData.length}개를 welfare_data.json에 저장했습니다.`);
 
     } catch (error) {
-        console.error("❌ 오류 발생:", error.message);
+        console.error("❌ 데이터 수집 중 에러 발생:", error);
     }
 }
-run();
+
+collectWelfareData();
