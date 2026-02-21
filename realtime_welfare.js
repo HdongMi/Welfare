@@ -2,23 +2,29 @@
 const API_KEY = 'e8e40ea23b405a5abba75382a331e61f9052570e9e95a7ca6cf5db14818ba22b';
 
 async function getRealTimePolicies() {
-    // 중앙부처 정책 API 주소
-    const target = `https://apis.data.go.kr/1352000/getWelfareServiceList/getWelfareServiceList?serviceKey=${API_KEY}&callTp=L&pageNo=1&numOfRows=50`;
+    // 1. 파라미터 분리 구성 (인코딩 오류 방지)
+    const baseUrl = 'https://apis.data.go.kr/1352000/getWelfareServiceList/getWelfareServiceList';
+    const params = new URLSearchParams({
+        serviceKey: API_KEY, // 브라우저가 자동으로 올바르게 인코딩합니다.
+        callTp: 'L',
+        pageNo: '1',
+        numOfRows: '50'
+    });
+
+    const targetUrl = `${baseUrl}?${params.toString()}`;
     
-    // [중요] 기존에 막혔던 allorigins 대신 더 강력한 corsproxy.io를 사용합니다.
-    const proxy = `https://corsproxy.io/?${encodeURIComponent(target)}`;
+    // 2. 500 에러를 피하기 위해 가장 우회 능력이 좋은 프록시 사용
+    const proxyUrl = `https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=60&url=${encodeURIComponent(targetUrl)}`;
 
     try {
-        const response = await fetch(proxy);
-        
-        // 응답이 정상인지 확인
-        if (!response.ok) throw new Error("네트워크 응답 에러");
+        const response = await fetch(proxyUrl);
+        if (!response.ok) throw new Error(`서버 응답 오류: ${response.status}`);
         
         const xmlText = await response.text();
         
-        // 데이터가 비어있는지 확인
-        if (!xmlText || xmlText.includes("SERVICE_KEY_IS_NOT_REGISTERED_ERROR")) {
-            console.error("API 키가 등록되지 않았거나 인코딩 오류입니다.");
+        // 키 문제로 인한 에러 메시지 확인
+        if (xmlText.includes("SERVICE_KEY_IS_NOT_REGISTERED_ERROR") || xmlText.includes("LIMITED_NUMBER_OF_SERVICE_OK_ERROR")) {
+            console.error("인증키가 등록되지 않았거나 사용량이 초과되었습니다.");
             return [];
         }
 
@@ -26,7 +32,10 @@ async function getRealTimePolicies() {
         const xml = parser.parseFromString(xmlText, "text/xml");
         const items = xml.getElementsByTagName("servList");
 
-        if (items.length === 0) return [];
+        if (items.length === 0) {
+            console.log("수집된 데이터가 없습니다.");
+            return [];
+        }
 
         return Array.from(items).map(item => ({
             source: item.getElementsByTagName("jurMnstNm")[0]?.textContent || "중앙부처",
@@ -35,7 +44,7 @@ async function getRealTimePolicies() {
             deadline: item.getElementsByTagName("bizPrdEn")[0]?.textContent || "상세참조"
         }));
     } catch (e) {
-        console.error("데이터 수집 에러:", e);
+        console.error("데이터 수집 최종 에러:", e);
         return [];
     }
 }
