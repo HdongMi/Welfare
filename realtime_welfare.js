@@ -2,35 +2,45 @@
 const API_KEY = 'e8e40ea23b405a5abba75382a331e61f9052570e9e95a7ca6cf5db14818ba22b';
 
 async function getRealTimePolicies() {
-    // 1. API 주소 조립
+    // 1. 공공데이터 API 주소 설정
     const baseUrl = 'https://apis.data.go.kr/1352000/getWelfareServiceList/getWelfareServiceList';
-    const queryParams = `serviceKey=${API_KEY}&callTp=L&pageNo=1&numOfRows=50`;
-    const targetUrl = `${baseUrl}?${queryParams}`;
+    const params = `serviceKey=${API_KEY}&callTp=L&pageNo=1&numOfRows=50`;
+    const targetUrl = `${baseUrl}?${params}`;
     
-    // 2. Github Pages 환경에서 CORS를 뚫기 위한 가장 확실한 우회 통로
-    // (이 프록시는 No 'Access-Control-Allow-Origin' 에러를 강제로 해결해줍니다)
-    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
+    // 2. Github.io 환경에서 가장 안정적인 우회 통로 (Cloudflare Worker 기반)
+    const proxyUrl = `https://cors-anywhere.herokuapp.com/${targetUrl}`;
+    // 만약 위 주소가 막히면 아래 주소로 교체해서 시도해보세요.
+    // const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
 
     try {
-        const response = await fetch(proxyUrl);
+        const response = await fetch(proxyUrl, {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        });
+
         if (!response.ok) throw new Error("네트워크 응답 오류");
 
-        const data = await response.json();
-        const xmlText = data.contents; // allorigins는 실제 데이터를 contents 안에 담아줍니다.
-
-        if (!xmlText) throw new Error("데이터를 가져오지 못했습니다.");
-
-        // API 키 오류 체크
-        if (xmlText.includes("SERVICE_KEY_IS_NOT_REGISTERED_ERROR")) {
-            console.error("API 키가 아직 승인되지 않았거나 인코딩이 잘못되었습니다.");
-            return [];
+        let xmlText;
+        // 프록시 종류에 따라 데이터 추출 방식이 다름
+        if (proxyUrl.includes('allorigins')) {
+            const json = await response.json();
+            xmlText = json.contents;
+        } else {
+            xmlText = await response.text();
         }
+
+        if (!xmlText) throw new Error("데이터 수집 실패");
 
         const parser = new DOMParser();
         const xml = parser.parseFromString(xmlText, "text/xml");
         const items = xml.getElementsByTagName("servList");
 
-        if (items.length === 0) return [];
+        if (items.length === 0) {
+            console.log("데이터 없음. 키 등록 여부 확인 필요.");
+            return [];
+        }
 
         return Array.from(items).map(item => ({
             source: item.getElementsByTagName("jurMnstNm")[0]?.textContent || "중앙부처",
@@ -40,8 +50,7 @@ async function getRealTimePolicies() {
         }));
 
     } catch (e) {
-        console.error("최종 에러 발생:", e);
-        // 만약 여기서도 에러가 나면, 사용자에게 보여줄 '최후의 안내'
+        console.error("데이터 로드 실패:", e);
         return [];
     }
 }
