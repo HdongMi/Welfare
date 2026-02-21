@@ -1,26 +1,33 @@
-
-// 공공데이터포털에서 발급받은 인증키
+// 파일명: realtime_welfare.js
 const API_KEY = 'e8e40ea23b405a5abba75382a331e61f9052570e9e95a7ca6cf5db14818ba22b';
 
 async function getRealTimePolicies() {
-    // 중앙부처 실시간 정책 API (최신순 50건 수집)
+    // 중앙부처 정책 API 주소
     const target = `https://apis.data.go.kr/1352000/getWelfareServiceList/getWelfareServiceList?serviceKey=${API_KEY}&callTp=L&pageNo=1&numOfRows=50`;
     
-    // 보안 차단(CORS) 우회를 위한 프록시 통로
-    const proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(target)}`;
+    // [중요] 기존에 막혔던 allorigins 대신 더 강력한 corsproxy.io를 사용합니다.
+    const proxy = `https://corsproxy.io/?${encodeURIComponent(target)}`;
 
     try {
         const response = await fetch(proxy);
-        const json = await response.json();
         
-        // 가져온 데이터를 XML로 해석
+        // 응답이 정상인지 확인
+        if (!response.ok) throw new Error("네트워크 응답 에러");
+        
+        const xmlText = await response.text();
+        
+        // 데이터가 비어있는지 확인
+        if (!xmlText || xmlText.includes("SERVICE_KEY_IS_NOT_REGISTERED_ERROR")) {
+            console.error("API 키가 등록되지 않았거나 인코딩 오류입니다.");
+            return [];
+        }
+
         const parser = new DOMParser();
-        const xml = parser.parseFromString(json.contents, "text/xml");
+        const xml = parser.parseFromString(xmlText, "text/xml");
         const items = xml.getElementsByTagName("servList");
 
         if (items.length === 0) return [];
 
-        // 주신 소스코드 형식(source, title, link, deadline)에 맞춰 데이터 매핑
         return Array.from(items).map(item => ({
             source: item.getElementsByTagName("jurMnstNm")[0]?.textContent || "중앙부처",
             title: item.getElementsByTagName("servNm")[0]?.textContent || "정책명 없음",
@@ -28,7 +35,7 @@ async function getRealTimePolicies() {
             deadline: item.getElementsByTagName("bizPrdEn")[0]?.textContent || "상세참조"
         }));
     } catch (e) {
-        console.error("실시간 수집 에러:", e);
+        console.error("데이터 수집 에러:", e);
         return [];
     }
 }
