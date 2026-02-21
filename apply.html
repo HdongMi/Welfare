@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>정책 서비스 찾기</title>
+    <title>정책 서비스 통합 검색</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquareRound@master/nanumsquareround.min.css">
     <style>
         :root { 
@@ -17,8 +17,9 @@
             background-attachment: fixed;
         }
 
-        header { padding: 10px 0 20px; }
+        header { padding: 10px 0 20px; text-align: center; }
         h1 { font-size: 26px; font-weight: 800; color: var(--point-sky); margin: 0; }
+        .update-tag { font-size: 12px; color: #64748b; margin-top: 5px; display: block; }
 
         .search-container { 
             position: sticky; top: 15px; z-index: 100; 
@@ -29,12 +30,13 @@
         input { 
             width: 100%; border: 2px solid #e0f2fe; padding: 15px 20px; 
             border-radius: 15px; font-size: 16px; outline: none; box-sizing: border-box;
+            transition: border-color 0.3s;
         }
+        input:focus { border-color: var(--point-sky); }
         
         .section-title { font-size: 17px; font-weight: 800; margin: 0 0 18px 5px; color: #334155; }
         .result-list { display: flex; flex-direction: column; gap: 16px; }
         
-        /* 📋 카드 디자인: 여백 및 간격 최적화 */
         .welfare-card { 
             background: white; padding: 25px; border-radius: 24px; 
             text-decoration: none; color: inherit; display: block; 
@@ -44,11 +46,8 @@
         .welfare-card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); }
         
         .dept { font-size: 12px; color: var(--point-sky); font-weight: 800; margin-bottom: 12px; display: block; }
-        
-        /* 제목 가독성 강화 */
         .title { font-size: 19px; font-weight: 800; color: #0f172a; line-height: 1.6; word-break: keep-all; display: block; }
         
-        /* 📅 신청기간: 겹침 방지를 위해 마진 확보 */
         .date-info { 
             display: inline-flex; align-items: center; 
             margin-top: 22px; 
@@ -57,42 +56,71 @@
             border: 1px solid #fee2e2;
         }
 
-        .status-msg { text-align: center; padding: 60px 20px; color: var(--sub-text); }
+        .status-msg { text-align: center; padding: 60px 20px; color: var(--sub-text); line-height: 1.6; }
+        .loading-spinner { 
+            border: 4px solid #f3f3f3; border-top: 4px solid var(--point-sky);
+            border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
-    <header><h1>🔍 정책 서비스 찾기</h1></header>
+    <header>
+        <h1>🔍 정책 서비스 찾기</h1>
+    </header>
+
     <div class="search-container">
-        <input type="text" id="searchInput" placeholder="정책명이나 키워드로 검색해보세요" onkeyup="filterResults()">
+        <input type="text" id="searchInput" placeholder="나열된 정책 중에서 검색 (예: 청년, 수당)" onkeyup="filterResults()">
     </div>
+
     <div id="content-area">
-        <div id="list-title" class="section-title">최신 수집 정책</div>
+        <div id="list-title" class="section-title">최신 정책 목록</div>
         <div id="resultArea" class="result-list">
-            <div class="status-msg">정책 데이터를 동기화하는 중입니다...</div>
+            <div class="loading-spinner"></div>
+            <div class="status-msg">데이터를 불러오는 중입니다...</div>
         </div>
     </div>
 
     <script>
-        let allPolicies = []; 
+        const API_KEY = 'e8e40ea23b405a5abba75382a331e61f9052570e9e95a7ca6cf5db14818ba22b'; 
+        let allPolicies = []; // 가져온 데이터를 저장할 배열
 
-        async function loadData() {
+        // 페이지 로드 시 즉시 데이터 호출
+        window.addEventListener('DOMContentLoaded', fetchInitialData);
+
+        async function fetchInitialData() {
             const resultArea = document.getElementById('resultArea');
             
             try {
-                // 💡 1. 먼저 로컬 data.json 파일을 불러오기 시도
-                const response = await fetch('data.json');
-                if (!response.ok) throw new Error('Local file not found');
-                allPolicies = await response.json();
+                // 초기 로딩 시 최근 정책 50개를 가져옴
+                const url = `https://apis.data.go.kr/1352000/getWelfareServiceList/getWelfareServiceList?serviceKey=${API_KEY}&callTp=L&pageNo=1&numOfRows=50`;
+                const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
+                
+                const response = await fetch(proxyUrl);
+                const data = await response.json();
+                
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(data.contents, "text/xml");
+                const items = xmlDoc.getElementsByTagName("servList");
+
+                if (items.length === 0) {
+                    resultArea.innerHTML = '<div class="status-msg">불러올 정책 데이터가 없습니다.</div>';
+                    return;
+                }
+
+                // 데이터를 배열에 저장
+                allPolicies = Array.from(items).map(item => ({
+                    servNm: item.getElementsByTagName("servNm")[0]?.textContent || "",
+                    jurMnstNm: item.getElementsByTagName("jurMnstNm")[0]?.textContent || "",
+                    servId: item.getElementsByTagName("servId")[0]?.textContent || "",
+                    bizPrdEn: item.getElementsByTagName("bizPrdEn")[0]?.textContent || "상시신청"
+                }));
+
                 displayData(allPolicies);
             } catch (e) {
-                console.log("JSON 파일을 찾을 수 없어 내장 데이터를 사용합니다.");
-                // 💡 2. JSON 파일이 없을 경우를 대비한 하드코딩 데이터
-                allPolicies = [
-                    { "servNm": "기초연금 지급 안내", "jurMnstNm": "보건복지부", "bizPrdEn": "상시신청", "servId": "W00000000001" },
-                    { "servNm": "청년 월세 특별지원 (2차)", "jurMnstNm": "국토교통부", "bizPrdEn": "2024.02.26 ~ 2025.02.25", "servId": "W00000168341" },
-                    { "servNm": "부모급여 지원", "jurMnstNm": "보건복지부", "bizPrdEn": "상시신청", "servId": "W00000168233" }
-                ];
-                displayData(allPolicies);
+                console.error(e);
+                resultArea.innerHTML = '<div class="status-msg">데이터 로드 실패. API 키 활성화 상태를 확인해주세요.</div>';
             }
         }
 
@@ -100,6 +128,11 @@
             const resultArea = document.getElementById('resultArea');
             resultArea.innerHTML = '';
             
+            if(data.length === 0) {
+                resultArea.innerHTML = '<div class="status-msg">검색 결과가 없습니다.</div>';
+                return;
+            }
+
             data.forEach(item => {
                 const card = document.createElement('a');
                 card.className = 'welfare-card';
@@ -115,6 +148,7 @@
             });
         }
 
+        // 실시간 필터링 기능
         function filterResults() {
             const query = document.getElementById('searchInput').value.toLowerCase().trim();
             const filtered = allPolicies.filter(p => 
@@ -122,8 +156,6 @@
             );
             displayData(filtered);
         }
-
-        window.addEventListener('DOMContentLoaded', loadData);
     </script>
 </body>
 </html>
