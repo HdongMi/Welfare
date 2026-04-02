@@ -1,178 +1,598 @@
 [
   {
+    "title": "2026년 모두의 챌린지 AX - LLM분야 창업기업 모집공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066917"
+  },
+  {
+    "title": "2026년 모두의 챌린지 AX - 버티컬분야 창업기업 모집공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066917"
+  },
+  {
+    "title": "2026년도 딥테크 챌린지 프로젝트(DCP) 기술도전형 제1차 기술수요조사 시행계획 공고",
+    "region": "전국",
+    "deadline": "2026-04-01~2026-05-04",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066885"
+  },
+  {
+    "title": "2026년 지역상권육성 사업 모집공고",
+    "region": "전국",
+    "deadline": "2026-04-01~2026-05-08",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066882"
+  },
+  {
+    "title": "2026년도 중소기업 인력양성대학(기술사관, 계약학과) 모집 공고문",
+    "region": "전국",
+    "deadline": "2026-03-30~2026-04-16",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066857"
+  },
+  {
+    "title": "2026년 「K-뷰티 수출 거점」 주관기관 모집공고",
+    "region": "전국",
+    "deadline": "2026-03-31~2026-05-14",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066854"
+  },
+  {
+    "title": "2026년도 도약(Jumo-Up)프로그램 연계 스마트공장 구축 지원사업 공고",
+    "region": "전국",
+    "deadline": "2026-04-01~2026-04-15",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066810"
+  },
+  {
+    "title": "2026년 중소기업 스마트서비스 지원사업 참여기업 모집 공고",
+    "region": "전국",
+    "deadline": "2026-04-20~2026-05-22",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066801"
+  },
+  {
+    "title": "2026년 중소기업 기술분쟁 소송보험 지원사업 공고",
+    "region": "전국",
+    "deadline": "2026-04-20~2026-05-22",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066801"
+  },
+  {
+    "title": "「2026년 스타트업 법률지원사업」 참여기업 모집공고",
+    "region": "전국",
+    "deadline": "2026-03-30~2026-12-31",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066759"
+  },
+  {
+    "title": "올해의 K-스타트업 2026 부처 통합 창업경진대회 공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066726"
+  },
+  {
+    "title": "2026년도 기술개발제품 공공기관 실증지원 사업 수정 공고",
+    "region": "전국",
+    "deadline": "2026-03-16~2026-04-15",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066715"
+  },
+  {
+    "title": "2026년도 창업성장기술개발사업(디딤돌) 제3차 시행계획 공고_도약과제",
+    "region": "전국",
+    "deadline": "2026-04-09~2026-04-29",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066673"
+  },
+  {
+    "title": "2026년 명문장수기업 모집 공고",
+    "region": "전국",
+    "deadline": "2026-03-26~2026-04-24",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066669"
+  },
+  {
+    "title": "2026년 도메인 특화 AI 모델 개발 사업 공고",
+    "region": "전국",
+    "deadline": "2026-03-26~2026-05-07",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066648"
+  },
+  {
+    "title": "2026년 K-스카우터 모집공고",
+    "region": "전국",
+    "deadline": "2026-03-26~2026-04-17",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066647"
+  },
+  {
+    "title": "「모두의 창업 프로젝트」 통합 모집공고",
+    "region": "전국",
+    "deadline": "2026-03-26~2026-05-15",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066642"
+  },
+  {
+    "title": "2026년 전통시장 육성사업(백년시장) 모집 수정 공고",
+    "region": "전국",
+    "deadline": "2026-03-25~2026-04-24",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066641"
+  },
+  {
+    "title": "「2026 벤처창업진흥 유공」 포상 신청 공고(연장)",
+    "region": "전국",
+    "deadline": "2026-03-05~2026-04-06",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066639"
+  },
+  {
+    "title": "2026년 전통시장 육성사업(백년시장) 모집공고",
+    "region": "전국",
+    "deadline": "2026-03-25~2026-04-24",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066641"
+  },
+  {
+    "title": "2026년도 창업중심대학 대학발 (예비)창업기업 모집 수정공고",
+    "region": "전국",
+    "deadline": "2026-04-09~2026-04-29",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066673"
+  },
+  {
+    "title": "2026년도 창업중심대학 지역기반 (예비)창업기업 모집 수정공고",
+    "region": "전국",
+    "deadline": "2026-04-09~2026-04-29",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066673"
+  },
+  {
+    "title": "2026년 예비창업패키지 예비창업자 모집 수정 공고(2차)",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "2026년 백년소상공인 모집(재지정) 공고(추가)",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "2026년도 지역특화발전특구 컨설팅 지원사업 계획 공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "2026년 글로벌협력형 R&D 1차 공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "2026년 소상공인(법인사업자) 비즈플러스카드 지원사업 시행 공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "2026년 소상공인(개인사업자) 비즈플러스카드 지원사업 시행 공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "2026년 중소기업 기술혁신 지원사업(KOSBIR) 통합 안내",
+    "region": "전국",
+    "deadline": "2026-04-20~2026-05-22",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066801"
+  },
+  {
+    "title": "2026년 중소기업 혁신바우처(지역제조) 사업 지원계획 공고",
+    "region": "전국",
+    "deadline": "2026-04-20~2026-05-22",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066801"
+  },
+  {
+    "title": "2026년 소공인특화지원센터 운영기관 모집공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "2026년도 제1차 중소벤처기업부 혁신제품 지정기간 연장(2차연장) 공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "2026년도 프리팁스 창업기업 모집공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "2026년도 글로벌 팁스 창업기업 모집공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "2026년 팁스 창업기업 지원계획 수정 공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "2026년도 민관공동기술사업화R&D(TRL점프업) 상반기 2차 시행계획 공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "소상공인 정책자금 구조개편 아이디어 공모전(수정)",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "2026년도 중기부-과기정통부-산업부 주요 AX 사업 통합공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "2026년도 중동 특화 긴급 물류바우처 사업 참여기업 수정공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "2026년 글로벌쇼핑몰 활용 판매지원사업 참여기업 모집 공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "제3기 벤처기업확인기관 모집공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "2026 Global Startup Commercialization Support Program",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "2026년도 스케일업금융 발행계획 공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "2026년도 중동 특화 긴급 물류바우처 사업 참여기업 모집공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "『2026년도 기술사업화 패키지』 규제혁신 연계 지원사업 시행계획 공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "2026년도 민관공동기술사업화R&D 시행계획 수정공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "2026년도 기술개발제품 공공기관 실증지원 사업 공고",
+    "region": "전국",
+    "deadline": "2026-03-16~2026-04-15",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066715"
+  },
+  {
+    "title": "2026년 중소기업기술혁신개발사업 하반기(1차, 소부장) 시행계획 공고",
+    "region": "전국",
+    "deadline": "2026-04-20~2026-05-22",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066801"
+  },
+  {
+    "title": "2026년 기술사업화 패키지 지원사업 제1차 시행계획 수정공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "2026년 기술개발제품 시범구매 지원계획(1차) 공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "2026년 성능인증(EPC) 신규신청 접수 공고(제1차)",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "2026년도 M&A 활성화 지원사업 공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "2026년 온라인 수출 중소기업 물류 지원 사업 수행기관 모집공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "2026년 백년소상공인 신규 지정 모집 공고(연장)",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "소상공인 정책자금 구조개편 아이디어 공모전",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "2026년 소상공인 협업활성화 공동사업 모집공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "2026년 예비창업패키지(특화분야) 사내벤처팀 모집공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "2026년 기술보호 바우처 지원사업 참여기업 모집공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "중소기업 기후공시, 공급망실사 대응 기반구축 사업 참여기업 모집 공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+  },
+  {
+    "title": "「2026 벤처창업진흥 유공」 포상 신청 공고",
+    "region": "전국",
+    "deadline": "2026-03-05~2026-04-06",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066639"
+  },
+  {
     "title": "『2026년도 표준공정 기반 공정최적화 기술개발(R&D)사업』  사전연구 및 제조현장진단 전문연구기관 모집공고(연장)",
     "region": "전국",
     "deadline": "상세참조",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066004"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
   },
   {
     "title": "2026년도 데이터 인프라 구축사업 운영기관 모집 공고문",
     "region": "전국",
-    "deadline": "2026-03-03~2026-04-03",
+    "deadline": "상세참조",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066003"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
   },
   {
     "title": "2026년 창업성공패키지(청년창업사관학교) 지원사업 투자형(민간주도형) 운영사 추가 모집공고",
     "region": "전국",
     "deadline": "상세참조",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066002"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
   },
   {
     "title": "2026년도 창업중심대학 대학발 (예비)창업기업 모집공고",
     "region": "전국",
-    "deadline": "상세참조",
+    "deadline": "2026-04-09~2026-04-29",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065998"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066673"
   },
   {
     "title": "2026년도 창업중심대학 지역기반 (예비)창업기업 모집공고",
     "region": "전국",
-    "deadline": "상세참조",
+    "deadline": "2026-04-09~2026-04-29",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065998"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066673"
   },
   {
     "title": "2026년도 중소기업 정책자금 융자계획 변경공고",
     "region": "전국",
-    "deadline": "상세참조",
+    "deadline": "2026-03-30~2026-04-16",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065960"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066857"
   },
   {
     "title": "2026년 예비창업패키지 예비창업자 모집 수정 공고",
     "region": "전국",
     "deadline": "상세참조",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065953"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
   },
   {
     "title": "2026년 예비창업패키지 예비창업자 모집공고",
     "region": "전국",
     "deadline": "상세참조",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065953"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
   },
   {
     "title": "2026년도 납품대금 연동 확산 지원본부 모집공고",
     "region": "전국",
-    "deadline": "2026-02-27~2026-03-17",
+    "deadline": "상세참조",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065920"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
   },
   {
     "title": "2026년 중소벤처기업부 소상공인 정책자금 융자사업 수정공고",
     "region": "전국",
     "deadline": "상세참조",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065916"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
   },
   {
     "title": "2026년도 투·융자연계 기술개발사업(스케일업팁스, 글로벌팁스, DCP) 지원계획 공고",
     "region": "전국",
-    "deadline": "2026-04-20~ 예산 소진 시",
+    "deadline": "상세참조",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065910"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
   },
   {
     "title": "2026년 중소기업 혁신바우처 사업 2차 지원계획 공고",
     "region": "전국",
-    "deadline": "2026-02-27~2026-03-13",
+    "deadline": "2026-04-20~2026-05-22",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065904"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066801"
   },
   {
     "title": "2026년 민관협력 오픈이노베이션 지원 방산 스타트업 챌린지 모집공고",
     "region": "전국",
-    "deadline": "2026-02-26~2026-03-11",
+    "deadline": "상세참조",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065863"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
   },
   {
     "title": "2026년 중소기업 기술침해 손해액 산정 지원사업 계획 공고",
     "region": "전국",
-    "deadline": "2026-02-27~2026-03-13",
+    "deadline": "2026-04-20~2026-05-22",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065904"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066801"
   },
   {
     "title": "2026년 창업성공패키지(청년창업사관학교 글로벌 심화과정) 지원사업 글로벌 5G 프로그램 운영사(G-라운드) 모집 재공고",
     "region": "전국",
-    "deadline": "2026-03-03~2026-03-12",
+    "deadline": "상세참조",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066002"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
   },
   {
     "title": "2026년 창업성공패키지(청년창업사관학교 딥테크 심화과정) 지원사업 딥테크 5D 프로그램 운영사(D-라운드) 모집 재공고",
     "region": "전국",
-    "deadline": "2026-03-03~2026-03-12",
+    "deadline": "상세참조",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066002"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
   },
   {
     "title": "2026년 백년소상공인 모집(재지정) 공고",
     "region": "전국",
-    "deadline": "2026-02-26~2026-03-18",
+    "deadline": "상세참조",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065816"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
   },
   {
     "title": "2026년도 1차 윈윈 아너스 추진계획 공고",
     "region": "전국",
-    "deadline": "2026-02-26~2026-03-31",
+    "deadline": "상세참조",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065815"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
   },
   {
     "title": "2026년 온라인 브랜드 소상공인 육성사업(TOPS프로그램) 소상공인 모집 공고",
     "region": "전국",
-    "deadline": "2026-02-26~2026-04-02",
+    "deadline": "상세참조",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065812"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
   },
   {
     "title": "2026년 1분기 협업기업 모집 공고",
     "region": "전국",
-    "deadline": "2026-02-26~2026-03-11",
+    "deadline": "상세참조",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065806"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
   },
   {
     "title": "2026년도 창업성장기술개발사업(디딤돌) 제2차 시행계획 공고",
     "region": "전국",
-    "deadline": "상세참조",
+    "deadline": "2026-04-09~2026-04-29",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065998"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066673"
   },
   {
     "title": "2026년도 중소기업 K-뷰티론 정책자금 지원계획 공고",
     "region": "전국",
-    "deadline": "상세참조",
+    "deadline": "2026-03-30~2026-04-16",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065960"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066857"
   },
   {
     "title": "2026년 민관협력 오픈이노베이션 지원 전략과제 해결형 스타트업 모집공고",
     "region": "전국",
-    "deadline": "2026-02-26~2026-03-11",
+    "deadline": "상세참조",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065863"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
   },
   {
     "title": "2026년 창업성공패키지(청년창업사관학교 글로벌 심화과정) 지원사업 글로벌 5G 프로그램 운영사 모집 공고(연장)",
     "region": "전국",
-    "deadline": "2026-03-03~2026-03-12",
+    "deadline": "상세참조",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066002"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
   },
   {
     "title": "2026년 창업성공패키지(청년창업사관학교 딥테크 심화과정) 지원사업 딥테크 5D 프로그램 운영사 모집 공고(연장)",
     "region": "전국",
-    "deadline": "2026-03-03~2026-03-12",
+    "deadline": "상세참조",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066002"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
   },
   {
     "title": "2026년 K-브랜드 수출 플랫폼 (중소형 온라인 수출 플랫폼) 육성사업 참여기업 모집공고",
@@ -198,9 +618,9 @@
   {
     "title": "2026년 중소기업 기술보호 지원사업 통합 공고",
     "region": "전국",
-    "deadline": "2026-02-27~2026-03-13",
+    "deadline": "2026-04-20~2026-05-22",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065904"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066801"
   },
   {
     "title": "민간기업 분야 우수인재 특별귀화 추천 신청 모집공고(Notice_Call for Applications Special Naturalization Recommendation)",
@@ -219,9 +639,9 @@
   {
     "title": "2026년 중소기업 탄소중립 설비투자 지원 참여기업 모집 공고",
     "region": "전국",
-    "deadline": "2026-02-27~2026-03-13",
+    "deadline": "2026-04-20~2026-05-22",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065904"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066801"
   },
   {
     "title": "2026년 청소년비즈쿨 운영기관 모집 공고",
@@ -263,440 +683,20 @@
     "region": "전국",
     "deadline": "상세참조",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065916"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
   },
   {
     "title": "2026년 백년소상공인 신규 지정 모집 공고",
     "region": "전국",
-    "deadline": "2026-02-26~2026-03-18",
+    "deadline": "상세참조",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065816"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
   },
   {
     "title": "2026년 중소기업 연구인력지원사업 공고",
     "region": "전국",
-    "deadline": "2026-02-27~2026-03-13",
+    "deadline": "2026-04-20~2026-05-22",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065904"
-  },
-  {
-    "title": "2026년 여성기업 육성사업 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년「지역 주도형 AI 대전환」 사업 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년 창업성공패키지(청년창업사관학교 글로벌 심화과정) 지원사업 글로벌 5G 프로그램 운영사 모집 공고",
-    "region": "전국",
-    "deadline": "2026-03-03~2026-03-12",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066002"
-  },
-  {
-    "title": "2026년 창업성공패키지(청년창업사관학교 딥테크 심화과정) 지원사업 딥테크 5D 프로그램 운영사 모집 공고",
-    "region": "전국",
-    "deadline": "2026-03-03~2026-03-12",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066002"
-  },
-  {
-    "title": "2026년 중소기업 탄소중립 사업화 지원 참여기업 모집 공고",
-    "region": "전국",
-    "deadline": "2026-02-27~2026-03-13",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065904"
-  },
-  {
-    "title": "2026년 지역 첨단제조 스타트업 스케일업 지원사업 주관기관 모집 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년도 지역혁신선도기업육성(R&D) 시행계획 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년 해외규격인증획득지원사업 1차 참여기업 모집공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년도 창업성공패키지(글로벌창업사관학교) 입교기업 모집공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065998"
-  },
-  {
-    "title": "2026년도 창업성공패키지(딥테크창업사관학교) 입교기업 모집공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065998"
-  },
-  {
-    "title": "2026년도 창업성공패키지(청년창업사관학교) 기본과정 입교생 모집공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065998"
-  },
-  {
-    "title": "『2026년도 표준공정 기반 공정최적화 기술개발(R&D)사업』 사전연구 및 제조현장진단 전문연구기관 모집공고",
-    "region": "전국",
-    "deadline": "2026-02-05~2026-03-09",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066004"
-  },
-  {
-    "title": "2026년도 R&D성과확산 스마트공장 구축 지원사업 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "26년도 중소기업 외국전문인력 활용지원사업 모집공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065960"
-  },
-  {
-    "title": "2026년 유니콘브릿지 사업 참여기업 모집 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년도 상반기 중소벤처기업부 혁신제품 신규지정 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년도 제조데이터 상품가공지원사업 공고문",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년 스마트공장 수준확인 사업",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년 창업성공패키지(청년창업사관학교) 지원사업 지역특화형[민간협업형] 운영사 모집 공고",
-    "region": "전국",
-    "deadline": "2026-03-03~2026-03-12",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066002"
-  },
-  {
-    "title": "2026년 스타트업 AI기술인력 양성(이어드림스쿨) 교육 운영사 모집 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "「소상공인 경영안정 바우처 지원사업」 시행 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년도 마케팅지원사업 통합 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년 중소기업 기술거래 기반조성 사업 시행공고",
-    "region": "전국",
-    "deadline": "2026-02-27~2026-03-13",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065904"
-  },
-  {
-    "title": "2026년 팁스 창업기업 지원계획 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년 「지역성장펀드」 참여 지방정부 모집 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년 창업도약패키지(일반형) 창업기업 모집공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년 초기창업패키지(일반형) 창업기업 모집공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년 온라인 브랜드 소상공인 육성사업(TOPS프로그램) 수행기관 모집 공고",
-    "region": "전국",
-    "deadline": "2026-02-26~2026-04-02",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065812"
-  },
-  {
-    "title": "2026년 벤처기업경쟁력강화 보조사업자 모집 공고 (벤처기업일자리지원, 여성벤처활성화지원)",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년 K-스타트업 그랜드 챌린지 주관기관 모집공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년도 중소기업 동반성장 네트워크론 지원계획 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065960"
-  },
-  {
-    "title": "2026년도 중소기업 매출채권팩토링 지원계획 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065960"
-  },
-  {
-    "title": "2026년 로컬창업 타운 신규 설치 지역 모집 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년 제조전문형 메이커 스페이스 주관기관 모집 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년 시제품 제작터 주관기관 모집 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년도 민관공동기술사업화R&D 상반기(1차)시행계획 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년도 산학연 Collabo R&D사업 시행계획 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년도 제1차 중소벤처기업부 혁신제품 지정기간 연장(1차연장) 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년도 중소기업기술혁신개발사업상반기 시행계획 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065960"
-  },
-  {
-    "title": "2026년도 딥테크 챌린지 프로젝트(DCP) 생태계혁신형 시행계획 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년 제품화 올인원팩 주관기관 모집 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년 프리 팁스 신규 주관기관 모집공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년도 제2차 전통시장 및 상점가 활성화 지원사업 공고 (전국우수시장박람회)",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년도 중소기업 특성화고 인력양성사업 참여기관 모집 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065960"
-  },
-  {
-    "title": "2026년 창업도약패키지(딥테크 특화형) 창업기업 모집 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년 초기창업패키지(딥테크 특화형) 창업기업 모집 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년 창업성공패키지(청년창업사관학교) 투자형(민간주도형) 운영사 모집 공고",
-    "region": "전국",
-    "deadline": "2026-03-03~2026-03-12",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066002"
-  },
-  {
-    "title": "2026년 국제개발협력(ODA) 사업수행기관 모집 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년 민관협력 오픈이노베이션 지원사업 협업과제 및 프로그램 모집공고",
-    "region": "전국",
-    "deadline": "2026-02-26~2026-03-11",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065863"
-  },
-  {
-    "title": "2026년도 대·중소기업 동반진출 지원사업 주관기업 모집공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년 초격차 스타트업 프로젝트 (팹리스 일관지원) 창업기업 모집공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년 초격차 스타트업 프로젝트 (DIPS) 창업기업 모집공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년도 대중소 상생형 스마트공장 주관기관(대기업 등) 모집 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년도 지역특화 프로젝트 레전드50+ 연계 스마트공장 구축 지원사업 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년 제조DX멘토단 활용지원사업 통합공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년 소공인 복합지원센터 구축·운영사업 본공모",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "「2026년 소상공인 고용보험료 지원사업」공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년  지역특화 프로젝트 레전드 50+ 지원사업 통합공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년 중소벤처기업부 소상공인 정책자금 융자사업 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065916"
-  },
-  {
-    "title": "2026년 중소벤처기업부 소상공인 지원사업 통합 공고",
-    "region": "전국",
-    "deadline": "상세참조",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1065916"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066801"
   }
 ]
