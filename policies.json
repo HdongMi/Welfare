@@ -1,5 +1,12 @@
 [
   {
+    "title": "2026년 소상공인 협업활성화 공동사업 연장공고",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066951"
+  },
+  {
     "title": "2026년 모두의 챌린지 AX - LLM분야 창업기업 모집공고",
     "region": "전국",
     "deadline": "상세참조",
@@ -186,14 +193,14 @@
     "region": "전국",
     "deadline": "상세참조",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066951"
   },
   {
     "title": "2026년 소상공인(개인사업자) 비즈플러스카드 지원사업 시행 공고",
     "region": "전국",
     "deadline": "상세참조",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066951"
   },
   {
     "title": "2026년 중소기업 기술혁신 지원사업(KOSBIR) 통합 안내",
@@ -389,7 +396,7 @@
     "region": "전국",
     "deadline": "상세참조",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066951"
   },
   {
     "title": "2026년 예비창업패키지(특화분야) 사내벤처팀 모집공고",
@@ -691,12 +698,5 @@
     "deadline": "상세참조",
     "source": "중소벤처기업부",
     "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년 중소기업 연구인력지원사업 공고",
-    "region": "전국",
-    "deadline": "2026-04-20~2026-05-22",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1066801"
   }
 ]
