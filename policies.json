@@ -1,5 +1,12 @@
 [
   {
+    "title": "협업형 지역생활경제 활성화 시범사업 공고",
+    "region": "전국",
+    "deadline": "2026-05-29~2026-06-12",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1068654"
+  },
+  {
     "title": "2026년도 디지털기반 중소사업장 산재예방 기술개발 지원사업 시행계획 공고",
     "region": "전국",
     "deadline": "2026-06-15~2026-07-02",
@@ -135,9 +142,9 @@
   {
     "title": "2026년 K-스타트업 그랜드챌린지 해외 (예비) 스타트업 모집공고",
     "region": "전국",
-    "deadline": "2026-05-06~2026-06-17",
+    "deadline": "상세참조",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1068000"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
   },
   {
     "title": "2026년 중소기업 혁신바우처(채용지원) 사업 지원계획 수정 공고",
@@ -583,9 +590,9 @@
   {
     "title": "2026년 K-스카우터 모집공고",
     "region": "전국",
-    "deadline": "2026-05-06~2026-06-17",
+    "deadline": "상세참조",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1068000"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
   },
   {
     "title": "「모두의 창업 프로젝트」 통합 모집공고",
@@ -684,12 +691,5 @@
     "deadline": "2026-05-20~2026-06-05",
     "source": "중소벤처기업부",
     "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1068436"
-  },
-  {
-    "title": "2026년 소공인특화지원센터 운영기관 모집공고",
-    "region": "전국",
-    "deadline": "2026-05-08~2026-06-05",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1068080"
   }
 ]
