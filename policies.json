@@ -1,5 +1,12 @@
 [
   {
+    "title": "2026년 중소벤처기업부 소상공인 정책자금 융자사업 공고(변경 5차)",
+    "region": "전국",
+    "deadline": "상세참조",
+    "source": "중소벤처기업부",
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1071565"
+  },
+  {
     "title": "「민관협력 오픈이노베이션 지원」 2026년 제2차 상호 자율탐색형(바이오 분야) 참여기업 모집공고",
     "region": "전국",
     "deadline": "2026-10-01~2026-10-21",
@@ -135,9 +142,9 @@
   {
     "title": "「지역 중소기업 AI 활용·확산 유공 포상」 후보자 모집 공고",
     "region": "전국",
-    "deadline": "2026-09-01~2026-09-21",
+    "deadline": "상세참조",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1070844"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
   },
   {
     "title": "중소제조 특화 Multi AI Agent 개발(R&D) 점프업 Track 시행계획 공고",
@@ -256,7 +263,7 @@
     "region": "전국",
     "deadline": "상세참조",
     "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
+    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1071565"
   },
   {
     "title": "「모두의 창업:사회혁신 소셜벤처 리그」모집공고",
@@ -677,12 +684,5 @@
     "deadline": "상세참조",
     "source": "중소벤처기업부",
     "link": "https://www.mss.go.kr/site/smba/ex/bbs/List.do?cbIdx=310"
-  },
-  {
-    "title": "2026년 중소기업 우체국 국제 물류 서비스 이용 지원 사업 참여기업 모집 공고",
-    "region": "전국",
-    "deadline": "2026-09-07~2026-10-06",
-    "source": "중소벤처기업부",
-    "link": "https://www.mss.go.kr/site/smba/ex/bbs/View.do?cbIdx=310&bcIdx=1071012"
   }
 ]
